@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1342</width>
-    <height>921</height>
+    <width>1423</width>
+    <height>976</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -617,10 +617,10 @@ QPushButton:hover {
              <widget class="QWidget" name="layoutWidget">
               <property name="geometry">
                <rect>
-                <x>0</x>
+                <x>10</x>
                 <y>0</y>
-                <width>1209</width>
-                <height>844</height>
+                <width>1131</width>
+                <height>778</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -1030,8 +1030,8 @@ background-color: rgba(255, 255, 255,0);
                                 <string>Skip</string>
                                </property>
                                <property name="icon">
-                                <iconset resource="../../algorithm/Sorting-Algorithms-Visualisation-master/resources.qrc">
-                                 <normaloff>:/images/images/forward.svg</normaloff>:/images/images/forward.svg</iconset>
+                                <iconset>
+                                 <normaloff>../images/forward.svg</normaloff>../images/forward.svg</iconset>
                                </property>
                                <property name="iconSize">
                                 <size>
@@ -1071,8 +1071,8 @@ background-color: rgba(255, 255, 255,0);
                                 <string>Pause</string>
                                </property>
                                <property name="icon">
-                                <iconset resource="../../algorithm/Sorting-Algorithms-Visualisation-master/resources.qrc">
-                                 <normaloff>:/images/images/stop.svg</normaloff>:/images/images/stop.svg</iconset>
+                                <iconset>
+                                 <normaloff>../images/stop.svg</normaloff>../images/stop.svg</iconset>
                                </property>
                                <property name="iconSize">
                                 <size>
@@ -1137,8 +1137,8 @@ background-color: rgba(255, 255, 255,0);
                                 <string>Clear</string>
                                </property>
                                <property name="icon">
-                                <iconset resource="../../algorithm/Sorting-Algorithms-Visualisation-master/resources.qrc">
-                                 <normaloff>:/images/images/clean.svg</normaloff>:/images/images/clean.svg</iconset>
+                                <iconset>
+                                 <normaloff>../images/clean.svg</normaloff>../images/clean.svg</iconset>
                                </property>
                                <property name="iconSize">
                                 <size>
@@ -1256,7 +1256,7 @@ color: white;
                            <item>
                             <layout class="QVBoxLayout" name="verticalLayout_12">
                              <item>
-                              <widget class="QPushButton" name="pushButton">
+                              <widget class="QPushButton" name="upButton">
                                <property name="minimumSize">
                                 <size>
                                  <width>36</width>
@@ -1288,8 +1288,8 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
                                 <string/>
                                </property>
                                <property name="icon">
-                                <iconset resource="../../algorithm/Sorting-Algorithms-Visualisation-master/resources.qrc">
-                                 <normaloff>:/images/images/arrow_up_square.svg</normaloff>:/images/images/arrow_up_square.svg</iconset>
+                                <iconset>
+                                 <normaloff>../images/button_increase.png</normaloff>../images/button_increase.png</iconset>
                                </property>
                                <property name="iconSize">
                                 <size>
@@ -1313,7 +1313,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
                               </spacer>
                              </item>
                              <item>
-                              <widget class="QPushButton" name="pushButton_2">
+                              <widget class="QPushButton" name="downButton">
                                <property name="maximumSize">
                                 <size>
                                  <width>36</width>
@@ -1338,8 +1338,8 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
                                 <string/>
                                </property>
                                <property name="icon">
-                                <iconset resource="../../algorithm/Sorting-Algorithms-Visualisation-master/resources.qrc">
-                                 <normaloff>:/images/images/arrow_down_square.svg</normaloff>:/images/images/arrow_down_square.svg</iconset>
+                                <iconset>
+                                 <normaloff>../images/button_decrease.png</normaloff>../images/button_decrease.png</iconset>
                                </property>
                                <property name="iconSize">
                                 <size>
@@ -1516,7 +1516,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
                        <item>
                         <layout class="QFormLayout" name="formLayout_2">
                          <item row="2" column="1">
-                          <widget class="QSlider" name="verticalSlider">
+                          <widget class="QSlider" name="speedSlider">
                            <property name="orientation">
                             <enum>Qt::Horizontal</enum>
                            </property>
@@ -2151,50 +2151,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, st
                       </spacer>
                      </item>
                      <item>
-                      <spacer name="verticalSpacer_33">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
                       <layout class="QVBoxLayout" name="verticalLayout_23">
-                       <item>
-                        <widget class="QPushButton" name="back_btn_2">
-                         <property name="toolTip">
-                          <string>Back To Menu</string>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">#back_btn:hover{
-background-color: qlineargradient(spread:pad, x1:0.0113636, y1:0.591, x2:1, y2:0.25, stop:0 rgba(230, 184, 87, 255), stop:1 rgba(73, 142, 152, 255));
-
-}
-
-#back_btn{
-background-color: rgba(255, 255, 255,0);
-}</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="../../algorithm/Sorting-Algorithms-Visualisation-master/resources.qrc">
-                           <normaloff>:/images/images/home.svg</normaloff>:/images/images/home.svg</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>60</width>
-                           <height>60</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
                        <item>
                         <widget class="QPushButton" name="micro_btn">
                          <property name="styleSheet">
@@ -2206,8 +2163,8 @@ background-color: rgba(255, 255, 255,0);
                           <string/>
                          </property>
                          <property name="icon">
-                          <iconset resource="../../algorithm/Sorting-Algorithms-Visualisation-master/resources.qrc">
-                           <normaloff>:/images/images/microphone.svg</normaloff>:/images/images/microphone.svg</iconset>
+                          <iconset>
+                           <normaloff>../images/microphone.png</normaloff>../images/microphone.png</iconset>
                          </property>
                          <property name="iconSize">
                           <size>
