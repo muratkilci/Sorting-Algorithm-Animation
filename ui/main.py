@@ -178,35 +178,44 @@ class MainWindow(QMainWindow):
         self.ui.mic_btn_matrix.clicked.connect(self.voiceMatrix)
 
         #Random Page Uİ
-        self.ui.array_len_2.valueChanged.connect(self.value_len_random)
-        self.ui.createanarray_btn_2.clicked.connect(self.create_array_random)
-        self.ui.createanarray_btn_2.clicked.connect(self.sorting_array_random)
-        self.ui.set_default_values_2.clicked.connect(self.set_default_array_random)
+        self.ui.array_len_2.setMinimum(0)  # Fixing the dial to min 1 max 50.
+        self.ui.array_len_2.setMaximum(50)  # Link to print the number on the dial on the line edit next to it.
+        # Link to print the number on the dial on the line edit next to it.
+        self.ui.array_len_2.valueChanged.connect(self.value_len)
+        # Connecting the create array button with the corresponding function.
+        self.ui.createanarray_btn_2.clicked.connect(self.create_array)
+        self.ui.createanarray_btn_2.clicked.connect(self.sorting_array)
+        self.ui.set_default_values_2.clicked.connect(self.set_default_array)
         self.t = None
         self.msg = None
         self.x = None
-        self.sorted_arrayR = None
-        self.upperR = None
-        self.rectsR = None
-        self.lengthR = None
-        self.lowerR = None
-        self.msg3R = None
-        self.smallestR = None
-        self.numberR = None
+        self.sorted_array_random = None
+        self.upper_random = None
+        self.rects = None
+        self.length_random = None
+        self.lower_random = None
+        self.msg3 = None
+        self.smallest = None
+        self.number = None
         # Back to main menu.
-        self.ui.find_btn.clicked.connect(self.find_number_random)
+        self.ui.back_btn.clicked.connect(self.close)
+        # Connecting the find number button with the corresponding function.
+        self.ui.find_btn_2.clicked.connect(self.find_number)
+        # Linking the clear button with the corresponding function.
         self.ui.clear_btn_2.clicked.connect(self.clearRandom)
         self.ui.random_array_checkbox.setChecked(True)
-        self.ui.random_array_checkbox.toggled.connect(self.random_array_random)
-        self.ui.create_array_checkbox.toggled.connect(self.array_yourself_random)
+        self.ui.random_array_checkbox.toggled.connect(self.random_array)
+        self.ui.create_array_checkbox.toggled.connect(self.array_yourself)
         self.ui.MplSort_random.canvas.axes.get_xaxis().set_visible(False)
         self.ui.MplSort_random.canvas.axes.get_yaxis().set_visible(False)
         self.ui.lower_range_2.setValidator(QIntValidator(-1000000, 10000, self))
         self.ui.upper_range_2.setValidator(QIntValidator(10000, 1000000, self))
-        self.unsorted_array = []
-        self.lower_range_2 = 0
-        self.upper_range_2 = 0
+        self.unsorted_array_random = []
+        self.lower_range_random = 0
+        self.upper_range_random = 0
         self.ui.mic_btn.clicked.connect(self.voiceRandom)
+        self.setWindowFlags(Qt.CustomizeWindowHint)
+        self.pressing = False
 
         #info Page Uİ
         self.ui.logoButton.clicked.connect(self.uni_logo)
@@ -2552,6 +2561,26 @@ class MainWindow(QMainWindow):
         self.ui.column_m2.clear()
 
     #Random page UI
+
+
+
+    def mousePressEvent(self, event):
+        self.start = self.mapToGlobal(event.pos())
+        self.pressing = True
+
+    def mouseMoveEvent(self, event):
+        if self.pressing:
+            self.end = self.mapToGlobal(event.pos())
+            self.movement = self.end - self.start
+            self.setGeometry(self.mapToGlobal(self.movement).x(),
+                             self.mapToGlobal(self.movement).y(),
+                             self.width(),
+                             self.height())
+            self.start = self.end
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        self.pressing = False
+
     def voiceRandom(self):
         r = sr.Recognizer()
         microphoneValue = ""
@@ -2564,7 +2593,7 @@ class MainWindow(QMainWindow):
                 try:
                     if microphoneValue == 'set default values':
                         try:
-                            self.set_default_array_random()
+                            self.set_default_array()
                             microphoneValue = ""
                         except:
                             QMessageBox.warning(self, "ERROR", "Try Again...")
@@ -2572,20 +2601,20 @@ class MainWindow(QMainWindow):
 
                     elif microphoneValue == 'create array':
                         try:
-                            self.create_array_random()
+                            self.create_array()
                             microphoneValue = ""
                         except:
                             QMessageBox.warning(self, "ERROR", "Try Again...")
 
                     elif microphoneValue == 'find':
                         try:
-                            self.find_number_random()
+                            self.find_number()
                             microphoneValue = ""
                         except:
                             QMessageBox.warning(self, "ERROR", "Try Again...")
                     elif microphoneValue == 'clear':
                         try:
-                            self.clearRandom()
+                            self.clear()
                             microphoneValue = ""
                         except:
                             QMessageBox.warning(self, "ERROR", "Try Again...")
@@ -2608,30 +2637,30 @@ class MainWindow(QMainWindow):
             except sr.RequestError:
                 QMessageBox.information(self, "ERROR", "No Internet Connection...")
 
-    def set_default_array_random(self):
-        self.lowerR = random.randint(-50, 0)
-        self.ui.lower_range_2.setText(str(self.lowerR))
-        self.upperR = random.randint(50, 300)
-        self.ui.upper_range_2.setText(str(self.upperR))
-        self.lengthR = random.randint(10, 50)
-        self.ui.display_arraylen_2.setText(str(self.lengthR))
-        self.ui.array_len_2.setValue(self.lengthR)
+    def set_default_array(self):
+        self.lower_random = random.randint(-50, 0)
+        self.ui.lower_range_2.setText(str(self.lower_random))
+        self.upper_random = random.randint(50, 300)
+        self.ui.upper_range_2.setText(str(self.upper_random))
+        self.length_random = random.randint(10, 50)
+        self.ui.display_arraylen_2.setText(str(self.length_random))
+        self.ui.array_len_2.setValue(self.length_random)
         # Calling the create array function from the project operations file
-        self.unsorted_array = random_select.createarray(self.lowerR, self.upperR, self.lengthR)
-        self.unsorted_array = random.sample(self.unsorted_array, len(self.unsorted_array))
-        self.sorting_array_random()
-        self.t = np.linspace(1, len(self.unsorted_array), len(self.unsorted_array))
+        self.unsorted_array_random = random_select.createarray(self.lower_random, self.upper_random, self.length_random)
+        self.unsorted_array_random = random.sample(self.unsorted_array_random, len(self.unsorted_array_random))
+        self.sorting_array()
+        self.t = np.linspace(1, len(self.unsorted_array_random), len(self.unsorted_array_random))
         # Display on the interface
-        self.ui.disp_unsorted_array_2.setText(str(self.unsorted_array))
+        self.ui.disp_unsorted_array_2.setText(str(self.unsorted_array_random))
         self.ui.MplSort_random.canvas.axes.clear()
         self.ui.MplSort_random.canvas.axes.set_title("Unsorted Array")
-        self.rectsR = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array, color=(0.4, 0, 0.2),
-                                                      edgecolor="blue")
-        self.autolabelRandom(self.rectsR)
+        self.rects = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array_random, color=(0.4, 0, 0.2),
+                                                            edgecolor="blue")
+        self.autolabel(self.rects)
         self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort_random.canvas.draw()
 
-    def random_array_random(self):
+    def random_array(self):
         self.ui.disp_unsorted_array_2.setReadOnly(True)
         self.ui.array_len_2.setEnabled(True)
         self.ui.create_array_checkbox.setChecked(False)
@@ -2639,7 +2668,7 @@ class MainWindow(QMainWindow):
         self.ui.upper_range_2.setEnabled(True)
         self.ui.set_default_values_2.setEnabled(True)
 
-    def array_yourself_random(self):
+    def array_yourself(self):
         self.ui.disp_unsorted_array_2.setReadOnly(False)
         self.ui.array_len_2.setEnabled(False)
         self.ui.random_array_checkbox.setChecked(False)
@@ -2649,42 +2678,46 @@ class MainWindow(QMainWindow):
         self.clear()
 
     # Function of array size value taken from dial to show next to line edit
-    def value_len_random(self):
-        self.lengthR = self.ui.array_len.value()
-        self.ui.display_arraylen_2.setText(str(self.lengthR))
+    def value_len(self):
+        self.length_random = self.ui.array_len_2.value()
+        self.ui.display_arraylen_2.setText(str(self.length_random))
 
     # Function to write number values to a bar chart.
-    def autolabelRandom(self, rects):
-        for rect in self.rectsR:
+    def autolabel(self, rects):
+        for rect in self.rects:
             height = rect.get_height()
             if height > 0:
                 self.ui.MplSort_random.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                                                 '%d' % int(height), ha='center', va='bottom')
+                                                        '%d' % int(height), ha='center', va='bottom')
             else:
                 self.ui.MplSort_random.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                                                 '%d' % int(height), ha='center', va='top')
+                                                        '%d' % int(height), ha='center', va='top')
 
     # %% Creating a random array and display it on the screen
-    def create_array_random(self):
+    def create_array(self):
         if self.ui.random_array_checkbox.isChecked():  # function written to create an array
             try:
                 try:
-                    self.lowerR = int(self.ui.lower_range_2.text())
-                    self.upperR = int(self.ui.upper_range_2.text())
-                    if (self.lowerR != 0 and self.upperR != 0) or self.lengthR != 0:
-                        if self.lowerR < self.upperR:
-                            if abs(self.upperR - self.lowerR) > self.lengthR:
+                    self.lower_random = int(self.ui.lower_range_2.text())
+                    self.upper_random = int(self.ui.upper_range_2.text())
+                    if (self.lower_random != 0 and self.upper_random != 0) or self.length_random != 0:
+                        if self.lower_random < self.upper_random:
+                            if abs(self.upper_random - self.lower_random) > self.length_random:
                                 # Calling the create array function from the project operations file
-                                self.unsorted_array = random_select.createarray(self.lowerR, self.upperR, self.lengthR)
-                                self.unsorted_array = random.sample(self.unsorted_array, len(self.unsorted_array))
-                                self.t = np.linspace(1, len(self.unsorted_array), len(self.unsorted_array))
+                                self.unsorted_array_random = random_select.createarray(self.lower_random,
+                                                                                       self.upper_random,
+                                                                                       self.length_random)
+                                self.unsorted_array_random = random.sample(self.unsorted_array_random,
+                                                                           len(self.unsorted_array_random))
+                                self.t = np.linspace(1, len(self.unsorted_array_random),
+                                                     len(self.unsorted_array_random))
                                 self.ui.disp_unsorted_array_2.setText(
-                                    str(self.unsorted_array))  # Display on the interface
+                                    str(self.unsorted_array_random))  # Display on the interface
                                 self.ui.MplSort_random.canvas.axes.clear()
                                 self.ui.MplSort_random.canvas.axes.set_title("Unsorted Array")
-                                self.rectsR = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array,
-                                                                              color='orange', edgecolor="blue")
-                                self.autolabelRandom(self.rectsR)
+                                self.rects = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array_random,
+                                                                                    color='orange', edgecolor="blue")
+                                self.autolabel(self.rects)
                                 self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
                                 self.ui.MplSort_random.canvas.draw()
                             else:
@@ -2705,58 +2738,61 @@ class MainWindow(QMainWindow):
         if self.ui.create_array_checkbox.isChecked():
             self.ui.disp_unsorted_array_2.setReadOnly(False)
             try:
-                self.unsorted_array = self.ui.disp_unsorted_array_2.toPlainText().split(',')
-                for i in range(len(self.unsorted_array)):
-                    self.unsorted_array[i] = int(self.unsorted_array[i])
-                self.t = np.linspace(1, len(self.unsorted_array), len(self.unsorted_array))
-                self.ui.disp_unsorted_array.setText(str(self.unsorted_array))  # Display on the interface
+                self.unsorted_array_random = self.ui.disp_unsorted_array_2.toPlainText().split(',')
+                for i in range(len(self.unsorted_array_random)):
+                    self.unsorted_array_random[i] = int(self.unsorted_array_random[i])
+                self.t = np.linspace(1, len(self.unsorted_array_random), len(self.unsorted_array_random))
+                self.ui.disp_unsorted_array_2.setText(str(self.unsorted_array_random))  # Display on the interface
                 self.ui.MplSort_random.canvas.axes.clear()
                 self.ui.MplSort_random.canvas.axes.set_title("Unsorted Array")
-                self.rectsR = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array, color=(0.4, 0, 0.2),
-                                                              edgecolor="blue")
-                self.autolabelRandom(self.rectsR)
+                self.rects = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array_random,
+                                                                    color=(0.4, 0, 0.2),
+                                                                    edgecolor="blue")
+                self.autolabel(self.rects)
                 self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
                 self.ui.MplSort_random.canvas.draw()
             except ValueError:
                 # If the user presses another button without pressing this button, an error is given
                 self.msg = QMessageBox.critical(self, "Error", "Please enter an array as valid format!")
-                self.ui.disp_unsorted_array.clear()
-                self.unsorted_array = []
+                self.ui.disp_unsorted_array_2.clear()
+                self.unsorted_array_random = []
 
     # %%Sorting a random array and display on the screen
-    def sorting_array_random(self):
-        if len(self.unsorted_array) != 0:
-            temp_array1 = tuple(self.unsorted_array)
+    def sorting_array(self):
+        if len(self.unsorted_array_random) != 0:
+            temp_array1 = tuple(self.unsorted_array_random)
             temp_array1 = list(temp_array1)
             # Calling the insertion sort function from the project operations file for sorting
-            self.sorted_arrayR = random_select.insertionSort(temp_array1)
+            self.sorted_array_random = random_select.insertionSort(temp_array1)
             # Display on the interface
-            self.ui.disp_sorted_array_2.setText(str(self.sorted_arrayR))
+            self.ui.disp_sorted_array_2.setText(str(self.sorted_array_random))
         # self.t = np.lin-space(1, len(self.unsorted_array), len(self.unsorted_array))
-        # self.ui.MplSort_random.canvas.axes.clear()
-        # self.ui.MplSort_random.canvas.axes.set_title("Sorted Array")
-        # self.rects=self.ui.MplSort_random.canvas.axes.bar(self.t, self.sorted_array, color="orange", edge color="black")
+        # self.ui.MplSort.canvas.axes.clear()
+        # self.ui.MplSort.canvas.axes.set_title("Sorted Array")
+        # self.rects=self.ui.MplSort.canvas.axes.bar(self.t, self.sorted_array, color="orange", edge color="black")
         # self.autolabel(self.rects)
-        # self.ui.MplSort_random.canvas.draw()
+        # self.ui.MplSort.canvas.draw()
         else:
             pass
 
     # %%Finding the index of the searched number and display on the screen
-    def find_number_random(self):
+    def find_number(self):
         try:
-            if len(self.sorted_arrayR) != 0:
-                self.numberR = int(self.ui.take_number.text())  # Getting the desired number from the user.
-                if self.numberR <= len(self.unsorted_array):  # Checking whether the desired number is in the array.
+            if len(self.sorted_array_random) != 0:
+                self.number = int(self.ui.take_number_2.text())  # Getting the desired number from the user.
+                if self.number <= len(
+                        self.unsorted_array_random):  # Checking whether the desired number is in the array.
                     # Calling the binary search function from the project operations file for search.
-                    self.smallestR = self.randomized_select_random(self.unsorted_array, 0, len(self.sorted_arrayR) - 1,
-                                                                   self.numberR)
+                    self.smallest = self.randomized_select(self.unsorted_array_random, 0,
+                                                           len(self.sorted_array_random) - 1,
+                                                           self.number)
                     # Display of result.
                     self.ui.result_edit_2.setText(
-                        "{}. smallest array is '{}'.".format(str(self.numberR), str(self.smallestR)))
+                        "{}. smallest array is '{}'.".format(str(self.number), str(self.smallest)))
 
                 else:
                     # Give an error if the requested number is not in the array.
-                    self.msg3R = QMessageBox.information(self, "Error", "Please enter a sorted array elements...")
+                    self.msg3 = QMessageBox.information(self, "Error", "Please enter a sorted array elements...")
                     # Clean the section where the user entered numbers.
                     self.ui.take_number_2.clear()
                     self.ui.result_edit_2.clear()
@@ -2766,13 +2802,13 @@ class MainWindow(QMainWindow):
             # Error if user enters anything other than number.
             self.msg = QMessageBox.information(self, "Error", "Please enter a valid number...")
             # Clean the section where the user entered numbers.
-            self.ui.take_number.clear()
+            self.ui.take_number_2.clear()
         except AttributeError:
             self.msg = QMessageBox.information(self, "Error", "Please create an array...")
 
     # %%
 
-    def partitionRandom(self, array, p, r):
+    def partition(self, array, p, r):
         x = array[r]
         i = p - 1
         for j in range(p, r):
@@ -2782,57 +2818,57 @@ class MainWindow(QMainWindow):
         array[i + 1], array[r] = array[r], array[i + 1]
         self.x = np.arange(len(array))
         self.ui.MplSort_random.canvas.axes.clear()
-        self.rectsR = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
+        self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
         self.ui.MplSort_random.canvas.axes.bar(self.x[r], array[r], color="green", edgecolor='black')
         self.ui.MplSort_random.canvas.axes.bar(self.x[i], array[i], color="purple", edgecolor='black')
-        self.autolabelRandom(self.rectsR)
+        self.autolabel(self.rects)
         self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort_random.canvas.draw()
         QApplication.processEvents()
         time.sleep(1)
         return i + 1
 
-    def randomized_partition_random(self, array, p, r):
+    def randomized_partition(self, array, p, r):
         i = random.randint(p, r)
         self.x = np.arange(len(array))
         self.ui.MplSort_random.canvas.axes.clear()
-        self.rectsR = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color=(0, 0, 0, 0.1), edgecolor='blue')
-        self.autolabelRandom(self.rectsR)
+        self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color=(0, 0, 0, 0.1), edgecolor='blue')
+        self.autolabel(self.rects)
         self.ui.MplSort_random.canvas.draw()
         array[r], array[i] = array[i], array[r]
-        return self.partitionRandom(array, p, r)
+        return self.partition(array, p, r)
 
-    def randomized_select_random(self, array, p, q, i):
+    def randomized_select(self, array, p, q, i):
         if p == q:
             self.ui.MplSort_random.canvas.axes.clear()
-            self.rectsR = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
+            self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
             self.ui.MplSort_random.canvas.axes.bar(self.x[p], array[q], color="blue", edgecolor='blue')
-            self.autolabelRandom(self.rectsR)
+            self.autolabel(self.rects)
             self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
             self.ui.MplSort_random.canvas.draw()
             return array[p]
-        r = self.randomized_partition_random(array, p, q)
+        r = self.randomized_partition(array, p, q)
         k = r - p + 1
         if i == k:
             self.ui.MplSort_random.canvas.axes.clear()
-            self.rectsR = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
+            self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
             self.ui.MplSort_random.canvas.axes.bar(self.x[r], array[r], color="blue", edgecolor='blue')
-            self.autolabelRandom(self.rectsR)
+            self.autolabel(self.rects)
             self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
             self.ui.MplSort_random.canvas.draw()
             return array[r]
         elif i < k:
-            return self.randomized_select_random(array, p, r - 1, i)
+            return self.randomized_select(array, p, r - 1, i)
         else:
-            return self.randomized_select_random(array, r + 1, q, i - k)
+            return self.randomized_select(array, r + 1, q, i - k)
 
     # %% Clear post-values with clear button
     def clearRandom(self):
-        self.lowerR = 0
-        self.upperR = 0
-        self.lengthR = 0
-        self.unsorted_array = []
-        self.sorted_arrayR = []
+        self.lower_random = 0
+        self.upper_random = 0
+        self.length_random = 0
+        self.unsorted_array_random = []
+        self.sorted_array_random = []
         self.ui.lower_range_2.clear()
         self.ui.upper_range_2.clear()
         self.ui.display_arraylen_2.clear()
@@ -2844,6 +2880,7 @@ class MainWindow(QMainWindow):
         self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort_random.canvas.draw()
         self.ui.array_len_2.setValue(0)
+
 
 
     #Info page Uı
