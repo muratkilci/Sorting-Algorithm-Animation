@@ -409,7 +409,7 @@ QPushButton:hover {
              </size>
             </property>
             <property name="currentIndex">
-             <number>4</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="infoPage">
              <widget class="QWidget" name="horizontalLayoutWidget">
@@ -497,12 +497,12 @@ QPushButton:hover {
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>../images/youtube-svgrepo-com.svg</normaloff>../images/youtube-svgrepo-com.svg</iconset>
+                   <normaloff>../images/icons8-youtube-48.png</normaloff>../images/icons8-youtube-48.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>140</width>
-                   <height>70</height>
+                   <width>48</width>
+                   <height>48</height>
                   </size>
                  </property>
                 </widget>
@@ -527,12 +527,12 @@ QPushButton:hover {
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>../images/linkedin-logo-2430.svg</normaloff>../images/linkedin-logo-2430.svg</iconset>
+                   <normaloff>../images/icons8-linkedin-48.png</normaloff>../images/icons8-linkedin-48.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>140</width>
-                   <height>70</height>
+                   <width>48</width>
+                   <height>48</height>
                   </size>
                  </property>
                 </widget>
@@ -557,12 +557,12 @@ QPushButton:hover {
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>../images/Instagram_logo_2016.svg</normaloff>../images/Instagram_logo_2016.svg</iconset>
+                   <normaloff>../images/icons8-instagram-48.png</normaloff>../images/icons8-instagram-48.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>140</width>
-                   <height>70</height>
+                   <width>48</width>
+                   <height>48</height>
                   </size>
                  </property>
                 </widget>
@@ -587,12 +587,12 @@ QPushButton:hover {
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>../images/Octicons-mark-github.svg</normaloff>../images/Octicons-mark-github.svg</iconset>
+                   <normaloff>../images/icons8-github-48.png</normaloff>../images/icons8-github-48.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>140</width>
-                   <height>70</height>
+                   <width>48</width>
+                   <height>48</height>
                   </size>
                  </property>
                 </widget>
@@ -6179,33 +6179,7 @@ color: white;}
                   </spacer>
                  </item>
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_25">
-                   <item>
-                    <widget class="QPushButton" name="back_btn">
-                     <property name="maximumSize">
-                      <size>
-                       <width>0</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="toolTip">
-                      <string>Back To Menu</string>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">background-color: rgba(0,0,0,0);</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>0</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                  <layout class="QVBoxLayout" name="verticalLayout_25"/>
                  </item>
                 </layout>
                </item>

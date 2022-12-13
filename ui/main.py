@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
         # info Page
         self.ui.infoPageButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.infoPage))
 
-        # sorting Page Uİ
+        # SHOW  ==> Sort Page
         self.AddArray = ArrayWindow()
         self.ui.array_sort.setMinimum(0)
         self.ui.array_sort.setMaximum(100)
@@ -99,7 +99,7 @@ class MainWindow(QMainWindow):
         self.ui.upButton.clicked.connect(self.plus)
         self.ui.downButton.clicked.connect(self.minus)
 
-        # compare Page Uİ
+        # SHOW ==> Compare Page
         self.method_list = [False, False, False, False, False, False, False, False, False, False]
         self.ui.clear_btn_comparison.clicked.connect(self.clearComparison)
         self.ui.comparisonall_button.pressed.connect(self.compare_all)
@@ -118,7 +118,7 @@ class MainWindow(QMainWindow):
         self.ui.MplSortComparison.canvas.axes.set_xlabel('Number of elements in array')
         self.ui.MplSortComparison.canvas.axes.set_ylabel('Time')
 
-        # fibonacci Page Uİ
+        # SHOW ==> Fibonacci Page
         self.ui.n_number.setValidator(QIntValidator(1, 1000, self))
         self.ui.findfibo_btn.clicked.connect(self.fibo_number)
         self.ui.findfibo_btn.clicked.connect(self.fibo_bar_graph)
@@ -127,7 +127,7 @@ class MainWindow(QMainWindow):
         self.ui.mic_btn_fibo.clicked.connect(self.voiceFibo)
         self.ui.clear_btn_fibo.clicked.connect(self.clearFibo)
 
-        # binary search Page Uİ
+        # SHOW ==> Binary Search Page
         self.ui.array_len.valueChanged.connect(self.valuelen)
         self.ui.createanarray_btn.clicked.connect(self.create_array)
         self.ui.sort_btn.clicked.connect(self.sortingarray)
@@ -144,24 +144,19 @@ class MainWindow(QMainWindow):
         self.ui.upper_range_binary.setValidator(QIntValidator(10000, 1000000, self))
         self.ui.mic_btn_binary.clicked.connect(self.voiceBinary)
 
-        # Matrix Page Uİ
+        # SHOW ==> Matrix Multiplication Page
         self.ui.row_m1.returnPressed.connect(self.inputs)
         self.ui.column_m1.returnPressed.connect(self.inputs)
         self.ui.row_m2.returnPressed.connect(self.inputs)
         self.ui.column_m2.returnPressed.connect(self.inputs)
-
         self.ui.row_m1.setValidator(QIntValidator(0, 10, self))
         self.ui.column_m1.setValidator(QIntValidator(0, 10, self))
         self.ui.row_m2.setValidator(QIntValidator(0, 10, self))
         self.ui.column_m2.setValidator(QIntValidator(0, 10, self))
-
         self.ui.create_matrix_btn_1.clicked.connect(self.matrix1_user)
         self.ui.create_matrix_btn_2.clicked.connect(self.matrix2_user)
-        self.ui.back_btn.clicked.connect(self.close)
-
         self.ui.generate_matrix_btn.clicked.connect(self.random_matrices)
         self.ui.multiply_btn.clicked.connect(self.multiplication)
-
         self.ui.clear_btn_matrix.clicked.connect(self.clearMatrix)
         self.ui.determinant_btn_1.clicked.connect(self.determinant1)
         self.ui.determinant_btn_2.clicked.connect(self.determinant2)
@@ -177,12 +172,10 @@ class MainWindow(QMainWindow):
         self.visible2_false()
         self.ui.mic_btn_matrix.clicked.connect(self.voiceMatrix)
 
-        #Random Page Uİ
-        self.ui.array_len_2.setMinimum(0)  # Fixing the dial to min 1 max 50.
-        self.ui.array_len_2.setMaximum(50)  # Link to print the number on the dial on the line edit next to it.
-        # Link to print the number on the dial on the line edit next to it.
+        # SHOW ==> Randomize Selection Page
+        self.ui.array_len_2.setMinimum(0)
+        self.ui.array_len_2.setMaximum(50)
         self.ui.array_len_2.valueChanged.connect(self.value_lenRandom)
-        # Connecting the create array button with the corresponding function.
         self.ui.createanarray_btn_2.clicked.connect(self.create_arrayRandom)
         self.ui.createanarray_btn_2.clicked.connect(self.sorting_arrayRandom)
         self.ui.set_default_values_2.clicked.connect(self.set_default_arrayRandom)
@@ -197,11 +190,7 @@ class MainWindow(QMainWindow):
         self.msg3 = None
         self.smallest = None
         self.number = None
-        # Back to main menu.
-        self.ui.back_btn.clicked.connect(self.close)
-        # Connecting the find number button with the corresponding function.
         self.ui.find_btn_2.clicked.connect(self.find_numberRandom)
-        # Linking the clear button with the corresponding function.
         self.ui.clear_btn_2.clicked.connect(self.clearRandom)
         self.ui.create_array_checkbox.setChecked(True)
         self.ui.random_array_checkbox.toggled.connect(self.random_arrayRandom)
@@ -215,15 +204,14 @@ class MainWindow(QMainWindow):
         self.upper_range_random = 0
         self.ui.mic_btn.clicked.connect(self.voiceRandom)
 
-        #info Page Uİ
+        # SHOW ==> Info Page
         self.ui.logoButton.clicked.connect(self.uni_logo)
         self.ui.youtubeButton.clicked.connect(self.youtube_logo)
         self.ui.githubButton.clicked.connect(self.github_logo)
         self.ui.linkedInlBUtton.clicked.connect(self.linkedIn_logo)
         self.ui.instagramButton.clicked.connect(self.intagram_logo)
 
-
-    # sorting Page Uİ
+    # SHOW  ==> Sort Page
     def spin_box(self):
         self.seed_value = self.ui.spinBox.value()
 
@@ -1422,7 +1410,7 @@ class MainWindow(QMainWindow):
         self.ui.MplSort.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort.canvas.draw()
 
-    # comparison Page Uİ
+    # SHOW ==> Compare Page
     def compare_all(self):
         all_methods = times.comparison([True, True, True, True, True, True, True, True, True, True])
         algorithms = ["Bubble", "Insertion", "Merge", "Selection", "Counting", "Heap", "Bucket", "Radix", "Quick",
@@ -1554,7 +1542,7 @@ class MainWindow(QMainWindow):
         self.ui.MplSortComparison.canvas.axes.clear()
         self.ui.MplSortComparison.canvas.draw()
 
-    # fibonacci Page UI
+    # SHOW ==> Fibonacci Page
     def voiceFibo(self):
         r = sr.Recognizer()
         microphoneValue = ""
@@ -1665,9 +1653,7 @@ class MainWindow(QMainWindow):
         self.ui.MplFib.canvas.draw()
         self.ui.fibonacci_series.clear()
 
-
-    #binary search page UI
-
+    # SHOW ==> Binary Search Page
     def voiceBinary(self):
         r = sr.Recognizer()
         microphoneValue = ""
@@ -1936,7 +1922,7 @@ class MainWindow(QMainWindow):
         self.ui.result_edit.clear()
         self.ui.array_len.setValue(0)
 
-    #matrix page UI
+    # SHOW ==> Matrix Multiplication Page
     def voiceMatrix(self):
         r = sr.Recognizer()
         microphoneValue = ""
@@ -2559,7 +2545,7 @@ class MainWindow(QMainWindow):
         self.ui.row_m2.clear()
         self.ui.column_m2.clear()
 
-    #Random page UI
+    # SHOW ==> Randomize Selection Page
     def mousePressEvent(self, event):
         self.start = self.mapToGlobal(event.pos())
         self.pressing = True
@@ -2674,12 +2660,10 @@ class MainWindow(QMainWindow):
         self.ui.set_default_values_2.setEnabled(False)
         self.clearRandom()
 
-    # Function of array size value taken from dial to show next to line edit
     def value_lenRandom(self):
         self.length_random = self.ui.array_len_2.value()
         self.ui.display_arraylen_2.setText(str(self.length_random))
 
-    # Function to write number values to a bar chart.
     def autolabel_random(self, rects):
         for rect in self.rects:
             height = rect.get_height()
@@ -2690,7 +2674,6 @@ class MainWindow(QMainWindow):
                 self.ui.MplSort_random.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
                                                         '%d' % int(height), ha='center', va='top')
 
-    # %% Creating a random array and display it on the screen
     def create_arrayRandom(self):
         if self.ui.random_array_checkbox.isChecked():  # function written to create an array
             try:
@@ -2754,7 +2737,6 @@ class MainWindow(QMainWindow):
                 self.ui.disp_unsorted_array_2.clear()
                 self.unsorted_array_random = []
 
-    # %%Sorting a random array and display on the screen
     def sorting_arrayRandom(self):
         if len(self.unsorted_array_random) != 0:
             temp_array1 = tuple(self.unsorted_array_random)
@@ -2772,7 +2754,6 @@ class MainWindow(QMainWindow):
         else:
             pass
 
-    # %%Finding the index of the searched number and display on the screen
     def find_numberRandom(self):
         try:
             if len(self.sorted_array_random) != 0:
@@ -2802,8 +2783,6 @@ class MainWindow(QMainWindow):
             self.ui.take_number_2.clear()
         except AttributeError:
             self.msg = QMessageBox.information(self, "Error", "Please create an array...")
-
-    # %%
 
     def partition(self, array, p, r):
         x = array[r]
@@ -2859,7 +2838,6 @@ class MainWindow(QMainWindow):
         else:
             return self.randomized_select(array, r + 1, q, i - k)
 
-    # %% Clear post-values with clear button
     def clearRandom(self):
         self.lower_random = 0
         self.upper_random = 0
@@ -2878,7 +2856,7 @@ class MainWindow(QMainWindow):
         self.ui.MplSort_random.canvas.draw()
         self.ui.array_len_2.setValue(0)
 
-    #Info page Uı
+    # SHOW ==> Info Page
     def uni_logo(self):
         webbrowser.open('https://www.ikcu.edu.tr/')
 
