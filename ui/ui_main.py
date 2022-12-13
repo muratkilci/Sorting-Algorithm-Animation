@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1423, 976)
+        MainWindow.resize(1293, 845)
         MainWindow.setMinimumSize(QtCore.QSize(1000, 500))
         MainWindow.setStyleSheet("background-color:rgb(209, 209, 209)")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -256,7 +256,7 @@ class Ui_MainWindow(object):
         self.sortingPage = QtWidgets.QWidget()
         self.sortingPage.setObjectName("sortingPage")
         self.layoutWidget = QtWidgets.QWidget(self.sortingPage)
-        self.layoutWidget.setGeometry(QtCore.QRect(10, 0, 1131, 778))
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 0, 1199, 818))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout_18 = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_18.setContentsMargins(0, 0, 0, 0)
@@ -427,7 +427,7 @@ class Ui_MainWindow(object):
 "background-color: rgba(255, 255, 255,0);\n"
 "}")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("../images/forward.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap("../images/icons8-next-track-button-48.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.skip_btn.setIcon(icon5)
         self.skip_btn.setIconSize(QtCore.QSize(36, 36))
         self.skip_btn.setObjectName("skip_btn")
@@ -443,7 +443,7 @@ class Ui_MainWindow(object):
 "background-color: rgba(255, 255, 255,0);\n"
 "}")
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("../images/stop.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6.addPixmap(QtGui.QPixmap("../images/icons8-pause-button-48.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.stop_btn.setIcon(icon6)
         self.stop_btn.setIconSize(QtCore.QSize(36, 36))
         self.stop_btn.setObjectName("stop_btn")
@@ -472,7 +472,7 @@ class Ui_MainWindow(object):
 "background-color: rgba(255, 255, 255,0);\n"
 "}")
         icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap("../images/clean.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon7.addPixmap(QtGui.QPixmap("../images/icons8-broom-48.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.clear_btn.setIcon(icon7)
         self.clear_btn.setIconSize(QtCore.QSize(36, 36))
         self.clear_btn.setObjectName("clear_btn")
@@ -624,25 +624,6 @@ class Ui_MainWindow(object):
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.label_4)
         self.verticalLayout_13.addLayout(self.formLayout_2)
         self.verticalLayout_16.addLayout(self.verticalLayout_13)
-        self.time_comparison = QtWidgets.QPushButton(self.layoutWidget)
-        self.time_comparison.setEnabled(True)
-        self.time_comparison.setMinimumSize(QtCore.QSize(56, 56))
-        font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(10)
-        font.setBold(True)
-        self.time_comparison.setFont(font)
-        self.time_comparison.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.time_comparison.setStyleSheet("#time_comparison{\n"
-"border-radius: 10px ;\n"
-"background-color: rgb(102, 61, 54);\n"
-"color: white;}\n"
-"\n"
-"#time_comparison:hover{\n"
-"background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 14, 255), stop:1 rgba(0, 108, 80, 255));\n"
-"}")
-        self.time_comparison.setObjectName("time_comparison")
-        self.verticalLayout_16.addWidget(self.time_comparison)
         spacerItem23 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_16.addItem(spacerItem23)
         self.horizontalLayout_11.addLayout(self.verticalLayout_16)
@@ -1527,7 +1508,9 @@ class Ui_MainWindow(object):
 "background-color: rgba(255, 255, 255,0);\n"
 "}")
         self.clear_btn_matrix.setText("")
-        self.clear_btn_matrix.setIcon(icon7)
+        icon11 = QtGui.QIcon()
+        icon11.addPixmap(QtGui.QPixmap("../images/clean.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.clear_btn_matrix.setIcon(icon11)
         self.clear_btn_matrix.setIconSize(QtCore.QSize(80, 45))
         self.clear_btn_matrix.setObjectName("clear_btn_matrix")
         self.horizontalLayout_53.addWidget(self.clear_btn_matrix)
@@ -1547,9 +1530,9 @@ class Ui_MainWindow(object):
 "background-color: rgba(255, 255, 255,0);\n"
 "}")
         self.pushButton_clear_3.setText("")
-        icon11 = QtGui.QIcon()
-        icon11.addPixmap(QtGui.QPixmap("../images/excel_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_clear_3.setIcon(icon11)
+        icon12 = QtGui.QIcon()
+        icon12.addPixmap(QtGui.QPixmap("../images/excel_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_clear_3.setIcon(icon12)
         self.pushButton_clear_3.setIconSize(QtCore.QSize(60, 60))
         self.pushButton_clear_3.setObjectName("pushButton_clear_3")
         self.horizontalLayout_53.addWidget(self.pushButton_clear_3)
@@ -1578,9 +1561,9 @@ class Ui_MainWindow(object):
 "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 14, 255), stop:1 rgba(0, 108, 80, 255));\n"
 "}")
         self.multiply_btn.setText("")
-        icon12 = QtGui.QIcon()
-        icon12.addPixmap(QtGui.QPixmap("../images/multiply.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.multiply_btn.setIcon(icon12)
+        icon13 = QtGui.QIcon()
+        icon13.addPixmap(QtGui.QPixmap("../images/multiply.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.multiply_btn.setIcon(icon13)
         self.multiply_btn.setIconSize(QtCore.QSize(70, 70))
         self.multiply_btn.setObjectName("multiply_btn")
         self.horizontalLayout_54.addWidget(self.multiply_btn)
@@ -1608,9 +1591,9 @@ class Ui_MainWindow(object):
 "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 14, 255), stop:1 rgba(0, 108, 80, 255));\n"
 "}")
         self.btn_sum_matrix.setText("")
-        icon13 = QtGui.QIcon()
-        icon13.addPixmap(QtGui.QPixmap("../images/add.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_sum_matrix.setIcon(icon13)
+        icon14 = QtGui.QIcon()
+        icon14.addPixmap(QtGui.QPixmap("../images/add.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_sum_matrix.setIcon(icon14)
         self.btn_sum_matrix.setIconSize(QtCore.QSize(70, 70))
         self.btn_sum_matrix.setObjectName("btn_sum_matrix")
         self.horizontalLayout_55.addWidget(self.btn_sum_matrix)
@@ -1632,9 +1615,9 @@ class Ui_MainWindow(object):
 "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 14, 255), stop:1 rgba(0, 108, 80, 255));\n"
 "}")
         self.btn_minus_matrix.setText("")
-        icon14 = QtGui.QIcon()
-        icon14.addPixmap(QtGui.QPixmap("../images/minus.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_minus_matrix.setIcon(icon14)
+        icon15 = QtGui.QIcon()
+        icon15.addPixmap(QtGui.QPixmap("../images/minus.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_minus_matrix.setIcon(icon15)
         self.btn_minus_matrix.setIconSize(QtCore.QSize(70, 70))
         self.btn_minus_matrix.setObjectName("btn_minus_matrix")
         self.horizontalLayout_55.addWidget(self.btn_minus_matrix)
@@ -2900,8 +2883,6 @@ class Ui_MainWindow(object):
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Lower Range:</span></p><p align=\"center\"><span style=\" font-size:10pt;\"><br/></span></p></body></html>"))
         self.lower_range.setToolTip(_translate("MainWindow", "Set Lower Range"))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:9pt;\">Animation Speed</span></p></body></html>"))
-        self.time_comparison.setToolTip(_translate("MainWindow", "See the Time Complexity Graph"))
-        self.time_comparison.setText(_translate("MainWindow", "TIME COMPARISON"))
         self.label_11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Sorting Algorithms</span></p></body></html>"))
         self.bubble_sort.setToolTip(_translate("MainWindow", "Bubble Sort Animation"))
         self.bubble_sort.setText(_translate("MainWindow", "BUBBLE SORT"))

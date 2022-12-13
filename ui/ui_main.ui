@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1423</width>
-    <height>976</height>
+    <width>1293</width>
+    <height>845</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -619,8 +619,8 @@ QPushButton:hover {
                <rect>
                 <x>10</x>
                 <y>0</y>
-                <width>1131</width>
-                <height>778</height>
+                <width>1199</width>
+                <height>818</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -1031,7 +1031,7 @@ background-color: rgba(255, 255, 255,0);
                                </property>
                                <property name="icon">
                                 <iconset>
-                                 <normaloff>../images/forward.svg</normaloff>../images/forward.svg</iconset>
+                                 <normaloff>../images/icons8-next-track-button-48.png</normaloff>../images/icons8-next-track-button-48.png</iconset>
                                </property>
                                <property name="iconSize">
                                 <size>
@@ -1072,7 +1072,7 @@ background-color: rgba(255, 255, 255,0);
                                </property>
                                <property name="icon">
                                 <iconset>
-                                 <normaloff>../images/stop.svg</normaloff>../images/stop.svg</iconset>
+                                 <normaloff>../images/icons8-pause-button-48.png</normaloff>../images/icons8-pause-button-48.png</iconset>
                                </property>
                                <property name="iconSize">
                                 <size>
@@ -1138,7 +1138,7 @@ background-color: rgba(255, 255, 255,0);
                                </property>
                                <property name="icon">
                                 <iconset>
-                                 <normaloff>../images/clean.svg</normaloff>../images/clean.svg</iconset>
+                                 <normaloff>../images/icons8-broom-48.png</normaloff>../images/icons8-broom-48.png</iconset>
                                </property>
                                <property name="iconSize">
                                 <size>
@@ -1535,45 +1535,6 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
                         </layout>
                        </item>
                       </layout>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="time_comparison">
-                       <property name="enabled">
-                        <bool>true</bool>
-                       </property>
-                       <property name="minimumSize">
-                        <size>
-                         <width>56</width>
-                         <height>56</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Verdana</family>
-                         <pointsize>10</pointsize>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="focusPolicy">
-                        <enum>Qt::NoFocus</enum>
-                       </property>
-                       <property name="toolTip">
-                        <string>See the Time Complexity Graph</string>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">#time_comparison{
-border-radius: 10px ;
-background-color: rgb(102, 61, 54);
-color: white;}
-
-#time_comparison:hover{
-background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 14, 255), stop:1 rgba(0, 108, 80, 255));
-}</string>
-                       </property>
-                       <property name="text">
-                        <string>TIME COMPARISON</string>
-                       </property>
-                      </widget>
                      </item>
                      <item>
                       <spacer name="verticalSpacer_4">
