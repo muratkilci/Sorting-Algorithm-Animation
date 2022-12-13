@@ -100,6 +100,7 @@ class MainWindow(QMainWindow):
         self.ui.downButton.clicked.connect(self.minus)
 
         # compare Page Uİ
+        self.method_list = [False, False, False, False, False, False, False, False, False, False]
         self.ui.clear_btn_comparison.clicked.connect(self.clearComparison)
         self.ui.comparisonall_button.pressed.connect(self.compare_all)
         self.ui.comparisonchoosen_button.pressed.connect(self.compare_chosen)

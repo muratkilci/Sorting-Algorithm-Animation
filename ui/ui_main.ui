@@ -409,7 +409,7 @@ QPushButton:hover {
              </size>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>5</number>
             </property>
             <widget class="QWidget" name="infoPage">
              <widget class="QWidget" name="horizontalLayoutWidget">
@@ -6162,7 +6162,7 @@ color: white;}
                 <x>10</x>
                 <y>0</y>
                 <width>1005</width>
-                <height>743</height>
+                <height>746</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_24">
@@ -6515,49 +6515,28 @@ qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 
                         <number>18</number>
                        </property>
                        <item>
-                        <widget class="QCheckBox" name="bubblesort_checkBox">
-                         <property name="font">
-                          <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
-                           <bold>true</bold>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">bubblesort_checkBox{
-
-}</string>
-                         </property>
-                         <property name="text">
-                          <string>BUBBLE SORT</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
                         <widget class="QCheckBox" name="insertionsort_checkBox">
                          <property name="font">
                           <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
+                           <pointsize>14</pointsize>
                            <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>INSERTION SORT</string>
+                          <string>Insertion Sort</string>
                          </property>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QCheckBox" name="mergesort_checkBox">
+                        <widget class="QCheckBox" name="bubblesort_checkBox">
                          <property name="font">
                           <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
+                           <pointsize>14</pointsize>
                            <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>MERGE SORT</string>
+                          <string>Bubble Sort</string>
                          </property>
                         </widget>
                        </item>
@@ -6565,27 +6544,38 @@ qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 
                         <widget class="QCheckBox" name="heapsort_checkBox">
                          <property name="font">
                           <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
+                           <pointsize>14</pointsize>
                            <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>HEAP SORT</string>
+                          <string>Heap Sort</string>
                          </property>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QCheckBox" name="selectionsort_checkBox">
+                        <widget class="QCheckBox" name="bucketsort_checkBox">
                          <property name="font">
                           <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
+                           <pointsize>14</pointsize>
                            <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>SELECTION SORT</string>
+                          <string>Bucket Sort</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QCheckBox" name="radixsort_checkBox">
+                         <property name="font">
+                          <font>
+                           <pointsize>14</pointsize>
+                           <bold>true</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Radix Sort</string>
                          </property>
                         </widget>
                        </item>
@@ -6597,30 +6587,41 @@ qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 
                         <number>18</number>
                        </property>
                        <item>
-                        <widget class="QCheckBox" name="quicksort_checkBox">
+                        <widget class="QCheckBox" name="mergesort_checkBox">
                          <property name="font">
                           <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
+                           <pointsize>14</pointsize>
                            <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>QUICK SORT</string>
+                          <string>Merge Sort</string>
                          </property>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QCheckBox" name="bucketsort_checkBox">
+                        <widget class="QCheckBox" name="quicksort_checkBox">
                          <property name="font">
                           <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
+                           <pointsize>14</pointsize>
                            <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>BUCKET SORT</string>
+                          <string>Quick Sort</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QCheckBox" name="selectionsort_checkBox">
+                         <property name="font">
+                          <font>
+                           <pointsize>14</pointsize>
+                           <bold>true</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>Selection Sort</string>
                          </property>
                         </widget>
                        </item>
@@ -6628,27 +6629,12 @@ qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 
                         <widget class="QCheckBox" name="countingsort_checkBox">
                          <property name="font">
                           <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
+                           <pointsize>14</pointsize>
                            <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>COUNTING SORT</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QCheckBox" name="radixsort_checkBox">
-                         <property name="font">
-                          <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
-                           <bold>true</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>RADIX SORT</string>
+                          <string>Counting Sort</string>
                          </property>
                         </widget>
                        </item>
@@ -6656,13 +6642,12 @@ qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, stop:0 rgba(48, 33, 
                         <widget class="QCheckBox" name="shellsort_checkBox">
                          <property name="font">
                           <font>
-                           <family>Verdana</family>
-                           <pointsize>12</pointsize>
+                           <pointsize>14</pointsize>
                            <bold>true</bold>
                           </font>
                          </property>
                          <property name="text">
-                          <string>SHELL SORT</string>
+                          <string>Shell Sort</string>
                          </property>
                         </widget>
                        </item>
