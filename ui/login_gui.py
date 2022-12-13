@@ -7,14 +7,14 @@ import createAcc_gui
 from login import Ui_MainWindow
 from ui import main
 
-firebaseConfig = {  'apiKey': "AIzaSyATVvfrqvGFbFv3_qK7i1Bgwh7VhiqBfxo",
-    'authDomain': "sorting-algorithm-cac72.firebaseapp.com",
-    'databaseURL': "https://sorting-algorithm-cac72-default-rtdb.firebaseio.com",
-    'projectId': "sorting-algorithm-cac72",
-    'storageBucket': "sorting-algorithm-cac72.appspot.com",
-    'messagingSenderId': "690254571021",
-    'appId': "1:690254571021:web:118dec6a6146b4a89a1744",
-    'measurementId': "G-8HG19LNSMM"}
+firebaseConfig = {'apiKey': "AIzaSyATVvfrqvGFbFv3_qK7i1Bgwh7VhiqBfxo",
+                  'authDomain': "sorting-algorithm-cac72.firebaseapp.com",
+                  'databaseURL': "https://sorting-algorithm-cac72-default-rtdb.firebaseio.com",
+                  'projectId': "sorting-algorithm-cac72",
+                  'storageBucket': "sorting-algorithm-cac72.appspot.com",
+                  'messagingSenderId': "690254571021",
+                  'appId': "1:690254571021:web:118dec6a6146b4a89a1744",
+                  'measurementId': "G-8HG19LNSMM"}
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 
@@ -28,8 +28,8 @@ class LoginWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.setWindowTitle('Login')
         self.ui.setupUi(self)
-        self.create=createAcc_gui.CreateAcc()
-        self.app= main.MainWindow()
+        self.create = createAcc_gui.CreateAcc()
+        self.app = main.MainWindow()
         self.ui.loginButton.clicked.connect(self.loginFunction)
         self.ui.createButton.clicked.connect(self.gotoCreate)
 
