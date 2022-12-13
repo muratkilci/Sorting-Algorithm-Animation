@@ -181,11 +181,11 @@ class MainWindow(QMainWindow):
         self.ui.array_len_2.setMinimum(0)  # Fixing the dial to min 1 max 50.
         self.ui.array_len_2.setMaximum(50)  # Link to print the number on the dial on the line edit next to it.
         # Link to print the number on the dial on the line edit next to it.
-        self.ui.array_len_2.valueChanged.connect(self.value_len)
+        self.ui.array_len_2.valueChanged.connect(self.value_lenRandom)
         # Connecting the create array button with the corresponding function.
-        self.ui.createanarray_btn_2.clicked.connect(self.create_array)
-        self.ui.createanarray_btn_2.clicked.connect(self.sorting_array)
-        self.ui.set_default_values_2.clicked.connect(self.set_default_array)
+        self.ui.createanarray_btn_2.clicked.connect(self.create_arrayRandom)
+        self.ui.createanarray_btn_2.clicked.connect(self.sorting_arrayRandom)
+        self.ui.set_default_values_2.clicked.connect(self.set_default_arrayRandom)
         self.t = None
         self.msg = None
         self.x = None
@@ -200,12 +200,12 @@ class MainWindow(QMainWindow):
         # Back to main menu.
         self.ui.back_btn.clicked.connect(self.close)
         # Connecting the find number button with the corresponding function.
-        self.ui.find_btn_2.clicked.connect(self.find_number)
+        self.ui.find_btn_2.clicked.connect(self.find_numberRandom)
         # Linking the clear button with the corresponding function.
         self.ui.clear_btn_2.clicked.connect(self.clearRandom)
-        self.ui.random_array_checkbox.setChecked(True)
-        self.ui.random_array_checkbox.toggled.connect(self.random_array)
-        self.ui.create_array_checkbox.toggled.connect(self.array_yourself)
+        self.ui.create_array_checkbox.setChecked(True)
+        self.ui.random_array_checkbox.toggled.connect(self.random_arrayRandom)
+        self.ui.create_array_checkbox.toggled.connect(self.array_yourselfRandom)
         self.ui.MplSort_random.canvas.axes.get_xaxis().set_visible(False)
         self.ui.MplSort_random.canvas.axes.get_yaxis().set_visible(False)
         self.ui.lower_range_2.setValidator(QIntValidator(-1000000, 10000, self))
@@ -214,8 +214,6 @@ class MainWindow(QMainWindow):
         self.lower_range_random = 0
         self.upper_range_random = 0
         self.ui.mic_btn.clicked.connect(self.voiceRandom)
-        self.setWindowFlags(Qt.CustomizeWindowHint)
-        self.pressing = False
 
         #info Page Uİ
         self.ui.logoButton.clicked.connect(self.uni_logo)
@@ -1758,6 +1756,7 @@ class MainWindow(QMainWindow):
         self.ui.lower_range_binary.setEnabled(True)
         self.ui.upper_range_binary.setEnabled(True)
         self.ui.set_default_values_binary.setEnabled(True)
+        self.clearBinary()
 
     def array_yourself(self):
         self.ui.disp_unsorted_array.setReadOnly(False)
@@ -1766,7 +1765,7 @@ class MainWindow(QMainWindow):
         self.ui.lower_range_binary.setEnabled(False)
         self.ui.upper_range_binary.setEnabled(False)
         self.ui.set_default_values_binary.setEnabled(False)
-        self.clear()
+        self.clearBinary()
 
     def valuelen(self):  # Function of array size value taken from dial to show next to line edit
         self.length_array = self.ui.array_len.value()
@@ -2561,9 +2560,6 @@ class MainWindow(QMainWindow):
         self.ui.column_m2.clear()
 
     #Random page UI
-
-
-
     def mousePressEvent(self, event):
         self.start = self.mapToGlobal(event.pos())
         self.pressing = True
@@ -2637,7 +2633,7 @@ class MainWindow(QMainWindow):
             except sr.RequestError:
                 QMessageBox.information(self, "ERROR", "No Internet Connection...")
 
-    def set_default_array(self):
+    def set_default_arrayRandom(self):
         self.lower_random = random.randint(-50, 0)
         self.ui.lower_range_2.setText(str(self.lower_random))
         self.upper_random = random.randint(50, 300)
@@ -2656,34 +2652,35 @@ class MainWindow(QMainWindow):
         self.ui.MplSort_random.canvas.axes.set_title("Unsorted Array")
         self.rects = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array_random, color=(0.4, 0, 0.2),
                                                             edgecolor="blue")
-        self.autolabel(self.rects)
+        self.autolabel_random(self.rects)
         self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort_random.canvas.draw()
 
-    def random_array(self):
+    def random_arrayRandom(self):
         self.ui.disp_unsorted_array_2.setReadOnly(True)
         self.ui.array_len_2.setEnabled(True)
         self.ui.create_array_checkbox.setChecked(False)
         self.ui.lower_range_2.setEnabled(True)
         self.ui.upper_range_2.setEnabled(True)
         self.ui.set_default_values_2.setEnabled(True)
+        self.clearRandom()
 
-    def array_yourself(self):
+    def array_yourselfRandom(self):
         self.ui.disp_unsorted_array_2.setReadOnly(False)
         self.ui.array_len_2.setEnabled(False)
         self.ui.random_array_checkbox.setChecked(False)
         self.ui.lower_range_2.setEnabled(False)
         self.ui.upper_range_2.setEnabled(False)
         self.ui.set_default_values_2.setEnabled(False)
-        self.clear()
+        self.clearRandom()
 
     # Function of array size value taken from dial to show next to line edit
-    def value_len(self):
+    def value_lenRandom(self):
         self.length_random = self.ui.array_len_2.value()
         self.ui.display_arraylen_2.setText(str(self.length_random))
 
     # Function to write number values to a bar chart.
-    def autolabel(self, rects):
+    def autolabel_random(self, rects):
         for rect in self.rects:
             height = rect.get_height()
             if height > 0:
@@ -2694,7 +2691,7 @@ class MainWindow(QMainWindow):
                                                         '%d' % int(height), ha='center', va='top')
 
     # %% Creating a random array and display it on the screen
-    def create_array(self):
+    def create_arrayRandom(self):
         if self.ui.random_array_checkbox.isChecked():  # function written to create an array
             try:
                 try:
@@ -2717,7 +2714,7 @@ class MainWindow(QMainWindow):
                                 self.ui.MplSort_random.canvas.axes.set_title("Unsorted Array")
                                 self.rects = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array_random,
                                                                                     color='orange', edgecolor="blue")
-                                self.autolabel(self.rects)
+                                self.autolabel_random(self.rects)
                                 self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
                                 self.ui.MplSort_random.canvas.draw()
                             else:
@@ -2748,7 +2745,7 @@ class MainWindow(QMainWindow):
                 self.rects = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array_random,
                                                                     color=(0.4, 0, 0.2),
                                                                     edgecolor="blue")
-                self.autolabel(self.rects)
+                self.autolabel_random(self.rects)
                 self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
                 self.ui.MplSort_random.canvas.draw()
             except ValueError:
@@ -2758,7 +2755,7 @@ class MainWindow(QMainWindow):
                 self.unsorted_array_random = []
 
     # %%Sorting a random array and display on the screen
-    def sorting_array(self):
+    def sorting_arrayRandom(self):
         if len(self.unsorted_array_random) != 0:
             temp_array1 = tuple(self.unsorted_array_random)
             temp_array1 = list(temp_array1)
@@ -2776,7 +2773,7 @@ class MainWindow(QMainWindow):
             pass
 
     # %%Finding the index of the searched number and display on the screen
-    def find_number(self):
+    def find_numberRandom(self):
         try:
             if len(self.sorted_array_random) != 0:
                 self.number = int(self.ui.take_number_2.text())  # Getting the desired number from the user.
@@ -2821,7 +2818,7 @@ class MainWindow(QMainWindow):
         self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
         self.ui.MplSort_random.canvas.axes.bar(self.x[r], array[r], color="green", edgecolor='black')
         self.ui.MplSort_random.canvas.axes.bar(self.x[i], array[i], color="purple", edgecolor='black')
-        self.autolabel(self.rects)
+        self.autolabel_random(self.rects)
         self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort_random.canvas.draw()
         QApplication.processEvents()
@@ -2833,7 +2830,7 @@ class MainWindow(QMainWindow):
         self.x = np.arange(len(array))
         self.ui.MplSort_random.canvas.axes.clear()
         self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color=(0, 0, 0, 0.1), edgecolor='blue')
-        self.autolabel(self.rects)
+        self.autolabel_random(self.rects)
         self.ui.MplSort_random.canvas.draw()
         array[r], array[i] = array[i], array[r]
         return self.partition(array, p, r)
@@ -2843,7 +2840,7 @@ class MainWindow(QMainWindow):
             self.ui.MplSort_random.canvas.axes.clear()
             self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
             self.ui.MplSort_random.canvas.axes.bar(self.x[p], array[q], color="blue", edgecolor='blue')
-            self.autolabel(self.rects)
+            self.autolabel_random(self.rects)
             self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
             self.ui.MplSort_random.canvas.draw()
             return array[p]
@@ -2853,7 +2850,7 @@ class MainWindow(QMainWindow):
             self.ui.MplSort_random.canvas.axes.clear()
             self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
             self.ui.MplSort_random.canvas.axes.bar(self.x[r], array[r], color="blue", edgecolor='blue')
-            self.autolabel(self.rects)
+            self.autolabel_random(self.rects)
             self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
             self.ui.MplSort_random.canvas.draw()
             return array[r]
@@ -2880,8 +2877,6 @@ class MainWindow(QMainWindow):
         self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort_random.canvas.draw()
         self.ui.array_len_2.setValue(0)
-
-
 
     #Info page Uı
     def uni_logo(self):

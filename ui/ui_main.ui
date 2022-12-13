@@ -409,7 +409,7 @@ QPushButton:hover {
              </size>
             </property>
             <property name="currentIndex">
-             <number>6</number>
+             <number>4</number>
             </property>
             <widget class="QWidget" name="infoPage">
              <widget class="QWidget" name="horizontalLayoutWidget">
@@ -5829,29 +5829,6 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0.425318, x2:1, y2:0.341,
                          </item>
                          <item>
                           <widget class="QCheckBox" name="random_array_checkbox">
-                           <property name="minimumSize">
-                            <size>
-                             <width>165</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                           <property name="maximumSize">
-                            <size>
-                             <width>165</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                           <property name="font">
-                            <font>
-                             <family>MS Shell Dlg 2</family>
-                             <pointsize>10</pointsize>
-                             <italic>false</italic>
-                             <bold>false</bold>
-                            </font>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
-                           </property>
                            <property name="text">
                             <string>Create Random Array</string>
                            </property>
@@ -5859,21 +5836,6 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0.425318, x2:1, y2:0.341,
                          </item>
                          <item>
                           <widget class="QCheckBox" name="create_array_checkbox">
-                           <property name="minimumSize">
-                            <size>
-                             <width>165</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                           <property name="maximumSize">
-                            <size>
-                             <width>165</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
-                           </property>
                            <property name="text">
                             <string>Create an Array Yourself</string>
                            </property>
@@ -7352,9 +7314,9 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, sto
                     <colorrole role="Button">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
@@ -7424,18 +7386,18 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, sto
                     <colorrole role="Base">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
                     <colorrole role="Window">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
@@ -7489,9 +7451,9 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, sto
                     <colorrole role="Button">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>240</red>
-                       <green>240</green>
-                       <blue>240</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
@@ -7561,18 +7523,18 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, sto
                     <colorrole role="Base">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
                     <colorrole role="Window">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>240</red>
-                       <green>240</green>
-                       <blue>240</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
@@ -7626,9 +7588,9 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, sto
                     <colorrole role="Button">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
@@ -7698,18 +7660,18 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.625, y2:0.761, sto
                     <colorrole role="Base">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
                     <colorrole role="Window">
                      <brush brushstyle="SolidPattern">
                       <color alpha="255">
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
+                       <red>209</red>
+                       <green>209</green>
+                       <blue>209</blue>
                       </color>
                      </brush>
                     </colorrole>
