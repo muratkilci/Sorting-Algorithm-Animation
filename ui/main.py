@@ -1842,7 +1842,7 @@ class MainWindow(QMainWindow):
                                                             edgecolor=(0, .9, .9))
                             self.ui.MplSort.canvas.axes.patch.set_alpha(0)
                             self.ui.MplSort.canvas.draw()
-                            self.ui.result_edit.setText("Element {} found at index '{}'.".format(str(self.number),
+                            self.ui.result_edit.setText("Element {} founded at index '{}'.".format(str(self.number),
                                                                                                  str(midpoint + 1)))  # Display of result
                             break
 
