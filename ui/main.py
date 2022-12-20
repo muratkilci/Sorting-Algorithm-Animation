@@ -115,9 +115,7 @@ class MainWindow(QMainWindow):
         self.ui.radixsort_checkBox.toggled.connect(self.checkbox_toggled)
         self.ui.quicksort_checkBox.toggled.connect(self.checkbox_toggled)
         self.ui.shellsort_checkBox.toggled.connect(self.checkbox_toggled)
-        self.ui.MplSortComparison.canvas.axes.set_title('Time Comparison Graph')
-        self.ui.MplSortComparison.canvas.axes.set_xlabel('Number of elements in array')
-        self.ui.MplSortComparison.canvas.axes.set_ylabel('Time')
+
 
         # SHOW ==> Fibonacci Page
         self.ui.n_number.setValidator(QIntValidator(1, 1000, self))
@@ -129,31 +127,35 @@ class MainWindow(QMainWindow):
         self.ui.clear_btn_fibo.clicked.connect(self.clearFibo)
 
         # SHOW ==> Binary Search Page
-        self.ui.array_len.valueChanged.connect(self.valuelen)
-        self.ui.createanarray_btn.clicked.connect(self.create_array)
-        self.ui.sort_btn.clicked.connect(self.sortingarray)
-        self.ui.find_btn.clicked.connect(self.find_number)
-        self.ui.clear_btn_binary.clicked.connect(self.clearBinary)
-        self.ui.checkBox_3.setChecked(True)
-        self.ui.checkBox_3.toggled.connect(self.random_array)
-        self.ui.checkBox_4.toggled.connect(self.array_yourself)
-        self.ui.set_default_values_binary.clicked.connect(self.set_default_array)
+        self.ui.array_len_binary.setMinimum(0)  # Fixing the dial to min 1 max 50
+        self.ui.array_len_binary.setMaximum(50)
+        self.ui.array_len_binary.valueChanged.connect(self.valuelen_binary)
+        self.ui.createanarray_btn_binary.clicked.connect(self.create_array_binary)
+        self.ui.sort_btn_binary.clicked.connect(self.sortingarray_binary)
+        self.ui.find_btn_binary.clicked.connect(self.find_number_binary)
+        self.ui.clear_btn_binary.clicked.connect(self.clear_binary)
+        self.ui.checkBox_binary.setChecked(True)
+        self.ui.checkBox_binary.toggled.connect(self.random_array_binary)
+        self.ui.checkBox_2_binary.toggled.connect(self.array_yourself_binary)
+        self.ui.set_default_values_binary.clicked.connect(self.set_default_array_binary)
         self.ui.MplSort_binary.canvas.axes.get_xaxis().set_visible(False)
         self.ui.MplSort_binary.canvas.axes.get_yaxis().set_visible(False)
-        self.ui.disp_unsorted_array.setReadOnly(True)
+        self.ui.disp_unsorted_array_binary.setReadOnly(True)
         self.ui.lower_range_binary.setValidator(QIntValidator(-1000000, 10000, self))
         self.ui.upper_range_binary.setValidator(QIntValidator(10000, 1000000, self))
-        self.ui.mic_btn_binary.clicked.connect(self.voiceBinary)
+        self.ui.mic_btn_binary.clicked.connect(self.voice_binary)
 
         # SHOW ==> Matrix Multiplication Page
 
         # SHOW ==> Randomize Selection Page
-        self.ui.array_len_2.setMinimum(0)
-        self.ui.array_len_2.setMaximum(50)
-        self.ui.array_len_2.valueChanged.connect(self.value_lenRandom)
-        self.ui.createanarray_btn_2.clicked.connect(self.create_arrayRandom)
-        self.ui.createanarray_btn_2.clicked.connect(self.sorting_arrayRandom)
-        self.ui.set_default_values_2.clicked.connect(self.set_default_arrayRandom)
+        self.ui.array_len_random.setMinimum(0)  # Fixing the dial to min 1 max 50.
+        self.ui.array_len_random.setMaximum(50)  # Link to print the number on the dial on the line edit next to it.
+        # Link to print the number on the dial on the line edit next to it.
+        self.ui.array_len_random.valueChanged.connect(self.value_len_random)
+        # Connecting the create array button with the corresponding function.
+        self.ui.createanarray_btn_random.clicked.connect(self.create_array_random)
+        self.ui.createanarray_btn_random.clicked.connect(self.sorting_array_random)
+        self.ui.set_default_values_random.clicked.connect(self.set_default_array_random)
         self.t = None
         self.msg = None
         self.x = None
@@ -163,21 +165,24 @@ class MainWindow(QMainWindow):
         self.length_random = None
         self.lower_random = None
         self.msg3 = None
-        self.smallest = None
-        self.number = None
-        self.ui.find_btn_2.clicked.connect(self.find_numberRandom)
-        self.ui.clear_btn_2.clicked.connect(self.clearRandom)
-        self.ui.create_array_checkbox.setChecked(True)
-        self.ui.random_array_checkbox.toggled.connect(self.random_arrayRandom)
-        self.ui.create_array_checkbox.toggled.connect(self.array_yourselfRandom)
+        self.smallest_random = None
+        self.number_random = None
+        # Back to main menu.
+        # Connecting the find number button with the corresponding function.
+        self.ui.find_btn_random.clicked.connect(self.find_number_random)
+        # Linking the clear button with the corresponding function.
+        self.ui.clear_btn_random.clicked.connect(self.clear_random)
+        self.ui.random_array_checkbox.setChecked(True)
+        self.ui.random_array_checkbox.toggled.connect(self.random_array_random)
+        self.ui.create_array_checkbox.toggled.connect(self.array_yourself_random)
         self.ui.MplSort_random.canvas.axes.get_xaxis().set_visible(False)
         self.ui.MplSort_random.canvas.axes.get_yaxis().set_visible(False)
-        self.ui.lower_range_2.setValidator(QIntValidator(-1000000, 10000, self))
-        self.ui.upper_range_2.setValidator(QIntValidator(10000, 1000000, self))
+        self.ui.lower_range_random.setValidator(QIntValidator(-1000000, 10000, self))
+        self.ui.upper_range_random.setValidator(QIntValidator(10000, 1000000, self))
         self.unsorted_array_random = []
         self.lower_range_random = 0
         self.upper_range_random = 0
-        self.ui.mic_btn.clicked.connect(self.voiceRandom)
+        self.ui.mic_btn_random.clicked.connect(self.voice_random)
 
         # SHOW ==> Info Page
         self.ui.logoButton.clicked.connect(self.uni_logo)
@@ -1630,7 +1635,7 @@ class MainWindow(QMainWindow):
         self.ui.fibonacci_series.clear()
 
     # SHOW ==> Binary Search Page
-    def voiceBinary(self):
+    def voice_binary(self):
         r = sr.Recognizer()
         microphoneValue = ""
         with sr.Microphone() as source:
@@ -1642,311 +1647,27 @@ class MainWindow(QMainWindow):
                 try:
                     if microphoneValue == 'set default values':
                         try:
-                            self.set_default_array()
+                            self.set_default_array_binary()
                             microphoneValue = ""
                         except:
                             QMessageBox.warning(self, "ERROR", "Try Again...")
 
                     elif microphoneValue == 'create array':
                         try:
-                            self.create_array()
+                            self.create_array_binary()
                             microphoneValue = ""
                         except:
                             QMessageBox.warning(self, "ERROR", "Try Again...")
 
                     elif microphoneValue == 'sort':
                         try:
-                            self.sortingarray()
+                            self.sortingarray_binary()
                             microphoneValue = ""
                         except:
                             QMessageBox.warning(self, "ERROR", "Try Again...")
                     elif microphoneValue == 'find index':
                         try:
-                            self.find_number()
-                            microphoneValue = ""
-                        except:
-                            QMessageBox.warning(self, "ERROR", "Try Again...")
-                    elif microphoneValue == 'clear':
-                        try:
-                            self.clearBinary()
-                            microphoneValue = ""
-                        except:
-                            QMessageBox.warning(self, "ERROR", "Try Again...")
-                    elif microphoneValue == 'close':
-                        try:
-                            self.close()
-                            microphoneValue = ""
-                        except:
-                            QMessageBox.warning(self, "ERROR", "Try Again...")
-                    else:
-                        QMessageBox.warning(self, "ERROR", "Try Again...")
-                except:
-                    QMessageBox.warning(self, "ERROR", "Try again...")
-            except sr.UnknownValueError:
-                QMessageBox.information(self, "ERROR", "Sorry, Cant understand, Please say again..")
-            except sr.RequestError as e:
-                QMessageBox.information(self, "ERROR",
-                                        "Could not request results from Google Speech Recognition service; {0}".format(
-                                            e))
-            except sr.RequestError:
-                QMessageBox.information(self, "ERROR", "No Internet Connection...")
-
-    def set_default_array(self):
-        self.lower = random.randint(-50, 0)
-        self.ui.lower_range_binary.setText(str(self.lower))
-        self.upper = random.randint(50, 300)
-        self.ui.upper_range_binary.setText(str(self.upper))
-        self.length = random.randint(10, 50)
-        self.ui.display_arraylen.setText(str(self.length))
-        self.ui.array_len.setValue(self.length)
-        self.unsorted_array = binarySearch.createarray(self.lower, self.upper,
-                                                       self.length)  # Calling the create array function from the project operations file
-        self.unsorted_array = random.sample(self.unsorted_array, len(self.unsorted_array))
-        self.t = np.linspace(1, len(self.unsorted_array), len(self.unsorted_array))
-        self.ui.disp_unsorted_array.setText(str(self.unsorted_array))  # Display on the interface
-        self.ui.MplSort_binary.canvas.axes.clear()
-        self.ui.MplSort_binary.canvas.axes.set_title("Unsorted Array")
-        self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.unsorted_array, color=(0.4, 0, 0.2), edgecolor="blue")
-        self.autolabelBinary(self.rects)
-        self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
-        self.ui.MplSort_binary.canvas.draw()
-
-    def random_array(self):
-        self.ui.disp_unsorted_array.setReadOnly(True)
-        self.ui.array_len.setEnabled(True)
-        self.ui.checkBox_4.setChecked(False)
-        self.ui.lower_range_binary.setEnabled(True)
-        self.ui.upper_range_binary.setEnabled(True)
-        self.ui.set_default_values_binary.setEnabled(True)
-        self.clearBinary()
-
-    def array_yourself(self):
-        self.ui.disp_unsorted_array.setReadOnly(False)
-        self.ui.array_len.setEnabled(False)
-        self.ui.checkBox_3.setChecked(False)
-        self.ui.lower_range_binary.setEnabled(False)
-        self.ui.upper_range_binary.setEnabled(False)
-        self.ui.set_default_values_binary.setEnabled(False)
-        self.clearBinary()
-
-    def valuelen(self):  # Function of array size value taken from dial to show next to line edit
-        self.length_array = self.ui.array_len.value()
-        self.ui.display_arraylen.setText(str(self.length_array))
-
-    def autolabelBinary(self, rects):
-        for rect in self.rects:
-            height = rect.get_height()
-            if height > 0:
-                self.ui.MplSort_binary.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                                                 '%d' % int(height), ha='center', va='bottom')
-            else:
-                self.ui.MplSort_binary.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                                                 '%d' % int(height), ha='center', va='top')
-
-    def create_array(self):
-        if self.ui.checkBox_2.isChecked():  # function written to create an array
-            try:
-                try:
-                    self.lower = int(self.ui.lower_range_binary.text())
-                    self.upper = int(self.ui.upper_range_binary.text())
-                    if (self.lower != 0 and self.upper != 0) or self.length_array != 0:
-                        if self.lower < self.upper:
-                            if abs(self.upper - self.lower) > self.length_array:
-                                self.unsorted_array = binarySearch.createarray(self.lower, self.upper,
-                                                                               self.length_array)  # Calling the create array function from the project operations file
-                                self.unsorted_array = random.sample(self.unsorted_array, len(self.unsorted_array))
-                                self.t = np.linspace(1, len(self.unsorted_array), len(self.unsorted_array))
-                                self.ui.disp_unsorted_array.setText(
-                                    str(self.unsorted_array))  # Display on the interface
-                                self.ui.MplSort_binary.canvas.axes.clear()
-                                self.ui.MplSort_binary.canvas.axes.set_title("Unsorted Array")
-                                self.rects = self.ui.MplSort.canvas.axes.bar(self.t, self.unsorted_array,
-                                                                             color=(0.4, 0, 0.2), edgecolor="blue")
-                                self.autolabelBinary(self.rects)
-                                self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
-                                self.ui.MplSort_binary.canvas.draw()
-                            else:
-                                self.msg = QMessageBox.critical(self, "Error",
-                                                                "Array length should be less than the difference between upper range and lower range.!")
-                        else:
-                            self.msg = QMessageBox.critical(self, "Error",
-                                                            "Upper range must be greater than lower range!")
-                    else:
-                        self.msg = QMessageBox.critical(self, "Error", "Please set the range and array size!")
-                except ValueError:
-                    self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields!")
-            except AttributeError:
-                self.msg = QMessageBox.critical(self, "Error",
-                                                "Please make the operations in order!")  # If the user presses another button without pressing this button, an error is given
-
-        if self.ui.checkBox_4.isChecked():
-            self.ui.disp_unsorted_array.setReadOnly(False)
-            try:
-                self.unsorted_array = self.ui.disp_unsorted_array.toPlainText().split(',')
-                for i in range(len(self.unsorted_array)):
-                    self.unsorted_array[i] = int(self.unsorted_array[i])
-                self.t = np.linspace(1, len(self.unsorted_array), len(self.unsorted_array))
-                self.ui.disp_unsorted_array.setText(str(self.unsorted_array))  # Display on the interface
-                self.ui.MplSort_binary.canvas.axes.clear()
-                self.ui.MplSort_binary.canvas.axes.set_title("Unsorted Array")
-                self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.unsorted_array, color=(0.4, 0, 0.2),
-                                                             edgecolor="blue")
-                self.autolabelBinary(self.rects)
-                self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
-                self.ui.MplSort_binary.canvas.draw()
-            except ValueError:
-                self.msg = QMessageBox.critical(self, "Error",
-                                                "Please enter an array as valid format!")  # If the user presses another button without pressing this button, an error is given
-                self.ui.disp_unsorted_array.clear()
-                self.unsorted_array = []
-
-    def sortingarray(self):
-        try:
-            if len(self.unsorted_array) != 0:
-                self.sorted_array = binarySearch.insertionSort(
-                    self.unsorted_array)  # Calling the insertion sort function from the project operations file for sorting
-                self.ui.disp_sorted_array.setText(str(self.sorted_array))  # Display on the interface
-                self.ui.MplSort_binary.canvas.axes.clear()
-                self.ui.MplSort_binary.canvas.axes.set_title("Sorted Array")
-                self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.sorted_array, color=(0.4, 0, 0.2),
-                                                             edgecolor="blue")
-                self.autolabelBinary(self.rects)
-                self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
-                self.ui.MplSort_binary.canvas.draw()
-            else:
-                self.msg = QMessageBox.information(self, "Error", "Please create an array...")
-        except AttributeError:
-            self.msg = QMessageBox.critical(self, "Error",
-                                            "Please make the operations in order!")  # If the user presses another button without pressing this button, an error is given
-            self.ui.disp_sorted_array.clear()
-
-    def find_number(self):
-        try:
-            if len(self.sorted_array) != 0:
-                self.number = int(self.ui.take_number.text())  # getting the desired number from the user
-                if np.isin(self.number, self.sorted_array):  # Checking whether the desired number is in the array
-                    begin_index = 0
-                    end_index = len(self.sorted_array) - 1
-                    while True:
-                        midpoint = begin_index + (end_index - begin_index) // 2
-                        # if begin_index>end_index:
-                        #     self.ui.lineEdit_answer.setText("None")
-                        #     break
-
-                        if self.sorted_array[midpoint] == self.number:
-                            self.ui.MplSort.canvas.axes.clear()
-                            self.rects = self.ui.MplSort.canvas.axes.bar(self.t, self.sorted_array, color=(0.4, 0, 0.2),
-                                                                         edgecolor=(0, .9, .9))
-                            self.autolabelBinary(self.rects)
-                            self.ui.MplSort.canvas.axes.bar(self.t[midpoint], self.sorted_array[midpoint], color="red",
-                                                            edgecolor=(0, .9, .9))
-                            self.ui.MplSort.canvas.axes.patch.set_alpha(0)
-                            self.ui.MplSort.canvas.draw()
-                            self.ui.result_edit.setText("Element {} founded at index '{}'.".format(str(self.number),
-                                                                                                 str(midpoint + 1)))  # Display of result
-                            break
-
-                        else:
-
-                            self.ui.MplSort_binary.canvas.axes.bar(self.t[midpoint], self.sorted_array[midpoint], color="blue",
-                                                            edgecolor=(0, .9, .9))
-                            self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
-                            self.ui.MplSort_binary.canvas.draw()
-                            QApplication.processEvents()
-                            time.sleep(1)
-                        if self.sorted_array[midpoint] > self.number:
-                            end_index = midpoint - 1
-                        if self.sorted_array[midpoint] < self.number:
-                            begin_index = midpoint + 1
-                else:
-                    self.msg3 = QMessageBox.information(self, "Error",
-                                                        "Please enter a sorted array elements...")  # give an error if the requested number is not in the array
-                    self.ui.MplSort_binary.canvas.axes.clear()
-                    self.ui.MplSort_binary.canvas.axes.set_title("Sorted Array")
-                    self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.sorted_array, color=(0.4, 0, 0.2),
-                                                                 edgecolor="black")
-                    self.autolabelBinary(self.rects)
-                    self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
-                    self.ui.MplSort_binary.canvas.draw()
-                    self.ui.take_number.clear()  # cleaning the section where the user entered numbers
-                    self.ui.result_edit.clear()
-            else:
-                self.msg = QMessageBox.critical(self, "Error", "Please make the operations in order!")
-                self.ui.take_number.clear()
-        except ValueError:
-            self.msg = QMessageBox.information(self, "Error",
-                                               "Please enter a valid number...")  # error if user enters anything other than number
-            self.ui.take_number.clear()  # cleaning the section where the user entered numbers
-        except AttributeError:
-            self.msg = QMessageBox.information(self, "Error", "Please create an array...")
-
-    def clearBinary(self):
-        self.lower = 0
-        self.upper = 0
-        self.length_array = 0
-        self.unsorted_array = []
-        self.sorted_array = []
-        self.ui.MplSort_binary.canvas.axes.clear()
-        self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
-        self.ui.MplSort_binary.canvas.draw()
-        self.ui.lower_range_binary.clear()
-        self.ui.upper_range_binary.clear()
-        self.ui.display_arraylen.clear()
-        self.ui.disp_unsorted_array.clear()
-        self.ui.disp_sorted_array.clear()
-        self.ui.take_number.clear()
-        self.ui.result_edit.clear()
-        self.ui.array_len.setValue(0)
-
-    # SHOW ==> Matrix Multiplication Page
-
-
-    # SHOW ==> Randomize Selection Page
-    def mousePressEvent(self, event):
-        self.start = self.mapToGlobal(event.pos())
-        self.pressing = True
-
-    def mouseMoveEvent(self, event):
-        if self.pressing:
-            self.end = self.mapToGlobal(event.pos())
-            self.movement = self.end - self.start
-            self.setGeometry(self.mapToGlobal(self.movement).x(),
-                             self.mapToGlobal(self.movement).y(),
-                             self.width(),
-                             self.height())
-            self.start = self.end
-
-    def mouseReleaseEvent(self, QMouseEvent):
-        self.pressing = False
-
-    def voiceRandom(self):
-        r = sr.Recognizer()
-        microphoneValue = ""
-        with sr.Microphone() as source:
-            try:
-                self.statusBar().showMessage('Start talking...')
-                audio = r.listen(source)
-                microphoneValue = (r.recognize_google(audio))
-                self.statusBar().showMessage('Stop talking...')
-                try:
-                    if microphoneValue == 'set default values':
-                        try:
-                            self.set_default_array()
-                            microphoneValue = ""
-                        except:
-                            QMessageBox.warning(self, "ERROR", "Try Again...")
-
-
-                    elif microphoneValue == 'create array':
-                        try:
-                            self.create_array()
-                            microphoneValue = ""
-                        except:
-                            QMessageBox.warning(self, "ERROR", "Try Again...")
-
-                    elif microphoneValue == 'find':
-                        try:
-                            self.find_number()
+                            self.find_number_binary()
                             microphoneValue = ""
                         except:
                             QMessageBox.warning(self, "ERROR", "Try Again...")
@@ -1975,21 +1696,305 @@ class MainWindow(QMainWindow):
             except sr.RequestError:
                 QMessageBox.information(self, "ERROR", "No Internet Connection...")
 
-    def set_default_arrayRandom(self):
+    def set_default_array_binary(self):
+        self.lower_binary = random.randint(-50, 0)
+        self.ui.lower_range_binary.setText(str(self.lower_binary))
+        self.upper_binary = random.randint(50, 300)
+        self.ui.upper_range_binary.setText(str(self.upper_binary))
+        self.length = random.randint(10, 50)
+        self.ui.display_arraylen_binary.setText(str(self.length))
+        self.ui.array_len_binary.setValue(self.length)
+        self.unsorted_array_binary = binarySearch.createarray(self.lower_binary, self.upper_binary,
+                                                              self.length)  # Calling the create array function from the project operations file
+        self.unsorted_array_binary = random.sample(self.unsorted_array_binary, len(self.unsorted_array_binary))
+        self.t = np.linspace(1, len(self.unsorted_array_binary), len(self.unsorted_array_binary))
+        self.ui.disp_unsorted_array_binary.setText(str(self.unsorted_array_binary))  # Display on the interface
+        self.ui.MplSort_binary.canvas.axes.clear()
+        self.ui.MplSort_binary.canvas.axes.set_title("Unsorted Array")
+        self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.unsorted_array_binary, color=(0.4, 0, 0.2),
+                                                            edgecolor="blue")
+        self.autolabel_binary(self.rects)
+        self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
+        self.ui.MplSort_binary.canvas.draw()
+
+    def random_array_binary(self):
+        self.ui.disp_unsorted_array_binary.setReadOnly(True)
+        self.ui.array_len_binary.setEnabled(True)
+        self.ui.checkBox_2_binary.setChecked(False)
+        self.ui.lower_range_binary.setEnabled(True)
+        self.ui.upper_range_binary.setEnabled(True)
+        self.ui.set_default_values_binary.setEnabled(True)
+
+    def array_yourself_binary(self):
+        self.ui.disp_unsorted_array_binary.setReadOnly(False)
+        self.ui.array_len_binary.setEnabled(False)
+        self.ui.checkBox_binary.setChecked(False)
+        self.ui.lower_range_binary.setEnabled(False)
+        self.ui.upper_range_binary.setEnabled(False)
+        self.ui.set_default_values_binary.setEnabled(False)
+        self.clear_binary()
+
+    def valuelen_binary(self):  # Function of array size value taken from dial to show next to line edit
+        self.length_array_binary = self.ui.array_len_binary.value()
+        self.ui.display_arraylen_binary.setText(str(self.length_array_binary))
+
+    # Function to write number values to a bar chart.
+    def autolabel_binary(self, rects):
+        for rect in self.rects:
+            height = rect.get_height()
+            if height > 0:
+                self.ui.MplSort_binary.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
+                                                        '%d' % int(height), ha='center', va='bottom')
+            else:
+                self.ui.MplSort_binary.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
+                                                        '%d' % int(height), ha='center', va='top')
+
+    # %%Creating a random array and display it on the screen
+    def create_array_binary(self):
+        if self.ui.checkBox_binary.isChecked():  # function written to create an array
+            try:
+                try:
+                    self.lower_binary = int(self.ui.lower_range_binary.text())
+                    self.upper_binary = int(self.ui.upper_range_binary.text())
+                    if (self.lower_binary != 0 and self.upper_binary != 0) or self.length_array_binary != 0:
+                        if self.lower_binary < self.upper_binary:
+                            if abs(self.upper_binary - self.lower_binary) > self.length_array_binary:
+                                self.unsorted_array_binary = binarySearch.createarray(self.lower_binary,
+                                                                                      self.upper_binary,
+                                                                                      self.length_array_binary)  # Calling the create array function from the project operations file
+                                self.unsorted_array_binary = random.sample(self.unsorted_array_binary,
+                                                                           len(self.unsorted_array_binary))
+                                self.t = np.linspace(1, len(self.unsorted_array_binary),
+                                                     len(self.unsorted_array_binary))
+                                self.ui.disp_unsorted_array_binary.setText(
+                                    str(self.unsorted_array_binary))  # Display on the interface
+                                self.ui.MplSort_binary.canvas.axes.clear()
+                                self.ui.MplSort_binary.canvas.axes.set_title("Unsorted Array")
+                                self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.unsorted_array_binary,
+                                                                                    color=(0.4, 0, 0.2),
+                                                                                    edgecolor="blue")
+                                self.autolabel_binary(self.rects)
+                                self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
+                                self.ui.MplSort_binary.canvas.draw()
+                            else:
+                                self.msg = QMessageBox.critical(self, "Error",
+                                                                "Array length should be less than the difference between upper range and lower range.!")
+                        else:
+                            self.msg = QMessageBox.critical(self, "Error",
+                                                            "Upper range must be greater than lower range!")
+                    else:
+                        self.msg = QMessageBox.critical(self, "Error", "Please set the range and array size!")
+                except ValueError:
+                    self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields!")
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error",
+                                                "Please make the operations in order!")  # If the user presses another button without pressing this button, an error is given
+
+        if self.ui.checkBox_2_binary.isChecked():
+            self.ui.disp_unsorted_array_binary.setReadOnly(False)
+            try:
+                self.unsorted_array_binary = self.ui.disp_unsorted_array_binary.toPlainText().split(',')
+                for i in range(len(self.unsorted_array_binary)):
+                    self.unsorted_array_binary[i] = int(self.unsorted_array_binary[i])
+                self.t = np.linspace(1, len(self.unsorted_array_binary), len(self.unsorted_array_binary))
+                self.ui.disp_unsorted_array_binary.setText(str(self.unsorted_array_binary))  # Display on the interface
+                self.ui.MplSort_binary.canvas.axes.clear()
+                self.ui.MplSort_binary.canvas.axes.set_title("Unsorted Array")
+                self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.unsorted_array_binary,
+                                                                    color=(0.4, 0, 0.2),
+                                                                    edgecolor="blue")
+                self.autolabel_binary(self.rects)
+                self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
+                self.ui.MplSort_binary.canvas.draw()
+            except ValueError:
+                self.msg = QMessageBox.critical(self, "Error",
+                                                "Please enter an array as valid format!")  # If the user presses another button without pressing this button, an error is given
+                self.ui.disp_unsorted_array_binary.clear()
+                self.unsorted_array_binary = []
+
+    # %%Sorting a random array and display on the screen
+    def sortingarray_binary(self):
+        try:
+            if len(self.unsorted_array_binary) != 0:
+                self.sorted_array_binary = binarySearch.insertionSort(
+                    self.unsorted_array_binary)  # Calling the insertion sort function from the project operations file for sorting
+                self.ui.disp_sorted_array_binary.setText(str(self.sorted_array_binary))  # Display on the interface
+                self.ui.MplSort_binary.canvas.axes.clear()
+                self.ui.MplSort_binary.canvas.axes.set_title("Sorted Array")
+                self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.sorted_array_binary,
+                                                                    color=(0.4, 0, 0.2),
+                                                                    edgecolor="blue")
+                self.autolabel_binary(self.rects)
+                self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
+                self.ui.MplSort_binary.canvas.draw()
+            else:
+                self.msg = QMessageBox.information(self, "Error", "Please create an array...")
+        except AttributeError:
+            self.msg = QMessageBox.critical(self, "Error",
+                                            "Please make the operations in order!")  # If the user presses another button without pressing this button, an error is given
+            self.ui.disp_sorted_array_binary.clear()
+
+    # %%Finding the index of the searched number and display on the screen
+    def find_number_binary(self):
+        try:
+            if len(self.sorted_array_binary) != 0:
+                self.number = int(self.ui.take_number_binary.text())  # getting the desired number from the user
+                if np.isin(self.number,
+                           self.sorted_array_binary):  # Checking whether the desired number is in the array
+                    begin_index = 0
+                    end_index = len(self.sorted_array_binary) - 1
+                    while True:
+                        midpoint = begin_index + (end_index - begin_index) // 2
+                        # if begin_index>end_index:
+                        #     self.ui.lineEdit_answer.setText("None")
+                        #     break
+
+                        if self.sorted_array_binary[midpoint] == self.number:
+                            self.ui.MplSort_binary.canvas.axes.clear()
+                            self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.sorted_array_binary,
+                                                                                color=(0.4, 0, 0.2),
+                                                                                edgecolor=(0, .9, .9))
+                            self.autolabel_binary(self.rects)
+                            self.ui.MplSort_binary.canvas.axes.bar(self.t[midpoint], self.sorted_array_binary[midpoint],
+                                                                   color="red",
+                                                                   edgecolor=(0, .9, .9))
+                            self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
+                            self.ui.MplSort_binary.canvas.draw()
+                            self.ui.result_edit_binary.setText(
+                                "Element {} founded at index '{}'.".format(str(self.number),
+                                                                         str(midpoint + 1)))  # Display of result
+                            break
+
+                        else:
+
+                            self.ui.MplSort_binary.canvas.axes.bar(self.t[midpoint], self.sorted_array_binary[midpoint],
+                                                                   color="blue",
+                                                                   edgecolor=(0, .9, .9))
+                            self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
+                            self.ui.MplSort_binary.canvas.draw()
+                            QApplication.processEvents()
+                            time.sleep(1)
+                        if self.sorted_array_binary[midpoint] > self.number:
+                            end_index = midpoint - 1
+                        if self.sorted_array_binary[midpoint] < self.number:
+                            begin_index = midpoint + 1
+                else:
+                    self.msg3 = QMessageBox.information(self, "Error",
+                                                        "Please enter a sorted array elements...")  # give an error if the requested number is not in the array
+                    self.ui.MplSort_binary.canvas.axes.clear()
+                    self.ui.MplSort_binary.canvas.axes.set_title("Sorted Array")
+                    self.rects = self.ui.MplSort_binary.canvas.axes.bar(self.t, self.sorted_array_binary,
+                                                                        color=(0.4, 0, 0.2),
+                                                                        edgecolor="black")
+                    self.autolabel_binary(self.rects)
+                    self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
+                    self.ui.MplSort_binary.canvas.draw()
+                    self.ui.take_number_binary.clear()  # cleaning the section where the user entered numbers
+                    self.ui.result_edit_binary.clear()
+            else:
+                self.msg = QMessageBox.critical(self, "Error", "Please make the operations in order!")
+                self.ui.take_number_binary.clear()
+        except ValueError:
+            self.msg = QMessageBox.information(self, "Error",
+                                               "Please enter a valid number...")  # error if user enters anything other than number
+            self.ui.take_number_binary.clear()  # cleaning the section where the user entered numbers
+        except AttributeError:
+            self.msg = QMessageBox.information(self, "Error", "Please create an array...")
+
+    # %% Clear post-values with clear button
+    def clear_binary(self):
+        self.lower_binary = 0
+        self.upper_binary = 0
+        self.length_array_binary = 0
+        self.unsorted_array_binary = []
+        self.sorted_array_binary = []
+        self.ui.MplSort_binary.canvas.axes.clear()
+        self.ui.MplSort_binary.canvas.axes.patch.set_alpha(0)
+        self.ui.MplSort_binary.canvas.draw()
+        self.ui.lower_range_binary.clear()
+        self.ui.upper_range_binary.clear()
+        self.ui.display_arraylen_binary.clear()
+        self.ui.disp_unsorted_array_binary.clear()
+        self.ui.disp_sorted_array_binary.clear()
+        self.ui.take_number_binary.clear()
+        self.ui.result_edit_binary.clear()
+        self.ui.array_len_binary.setValue(0)
+
+    # SHOW ==> Matrix Multiplication Page
+
+
+    # SHOW ==> Randomize Selection Page
+    def voice_random(self):
+        r = sr.Recognizer()
+        microphoneValue = ""
+        with sr.Microphone() as source:
+            try:
+                self.statusBar().showMessage('Start talking...')
+                audio = r.listen(source)
+                microphoneValue = (r.recognize_google(audio))
+                self.statusBar().showMessage('Stop talking...')
+                try:
+                    if microphoneValue == 'set default values':
+                        try:
+                            self.set_default_array_random()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+
+
+                    elif microphoneValue == 'create array':
+                        try:
+                            self.create_array_random()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+
+                    elif microphoneValue == 'find':
+                        try:
+                            self.find_number_random()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    elif microphoneValue == 'clear':
+                        try:
+                            self.clear()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    elif microphoneValue == 'close':
+                        try:
+                            self.close()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    else:
+                        QMessageBox.warning(self, "ERROR", "Try Again...")
+                except:
+                    QMessageBox.warning(self, "ERROR", "Try again...")
+            except sr.UnknownValueError:
+                QMessageBox.information(self, "ERROR", "Sorry, Cant understand, Please say again..")
+            except sr.RequestError as e:
+                QMessageBox.information(self, "ERROR",
+                                        "Could not request results from Google Speech Recognition service; {0}".format(
+                                            e))
+            except sr.RequestError:
+                QMessageBox.information(self, "ERROR", "No Internet Connection...")
+
+    def set_default_array_random(self):
         self.lower_random = random.randint(-50, 0)
-        self.ui.lower_range_2.setText(str(self.lower_random))
+        self.ui.lower_range_random.setText(str(self.lower_random))
         self.upper_random = random.randint(50, 300)
-        self.ui.upper_range_2.setText(str(self.upper_random))
+        self.ui.upper_range_random.setText(str(self.upper_random))
         self.length_random = random.randint(10, 50)
-        self.ui.display_arraylen_2.setText(str(self.length_random))
-        self.ui.array_len_2.setValue(self.length_random)
+        self.ui.display_arraylen_random.setText(str(self.length_random))
+        self.ui.array_len_random.setValue(self.length_random)
         # Calling the create array function from the project operations file
         self.unsorted_array_random = random_select.createarray(self.lower_random, self.upper_random, self.length_random)
         self.unsorted_array_random = random.sample(self.unsorted_array_random, len(self.unsorted_array_random))
-        self.sorting_array()
+        self.sorting_array_random()
         self.t = np.linspace(1, len(self.unsorted_array_random), len(self.unsorted_array_random))
         # Display on the interface
-        self.ui.disp_unsorted_array_2.setText(str(self.unsorted_array_random))
+        self.ui.disp_unsorted_array_random.setText(str(self.unsorted_array_random))
         self.ui.MplSort_random.canvas.axes.clear()
         self.ui.MplSort_random.canvas.axes.set_title("Unsorted Array")
         self.rects = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array_random, color=(0.4, 0, 0.2),
@@ -1998,28 +2003,29 @@ class MainWindow(QMainWindow):
         self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort_random.canvas.draw()
 
-    def random_arrayRandom(self):
-        self.ui.disp_unsorted_array_2.setReadOnly(True)
-        self.ui.array_len_2.setEnabled(True)
+    def random_array_random(self):
+        self.ui.disp_unsorted_array_random.setReadOnly(True)
+        self.ui.array_len_random.setEnabled(True)
         self.ui.create_array_checkbox.setChecked(False)
-        self.ui.lower_range_2.setEnabled(True)
-        self.ui.upper_range_2.setEnabled(True)
-        self.ui.set_default_values_2.setEnabled(True)
-        self.clearRandom()
+        self.ui.lower_range_random.setEnabled(True)
+        self.ui.upper_range_random.setEnabled(True)
+        self.ui.set_default_values_random.setEnabled(True)
 
-    def array_yourselfRandom(self):
-        self.ui.disp_unsorted_array_2.setReadOnly(False)
-        self.ui.array_len_2.setEnabled(False)
+    def array_yourself_random(self):
+        self.ui.disp_unsorted_array_random.setReadOnly(False)
+        self.ui.array_len_random.setEnabled(False)
         self.ui.random_array_checkbox.setChecked(False)
-        self.ui.lower_range_2.setEnabled(False)
-        self.ui.upper_range_2.setEnabled(False)
-        self.ui.set_default_values_2.setEnabled(False)
-        self.clearRandom()
+        self.ui.lower_range_random.setEnabled(False)
+        self.ui.upper_range_random.setEnabled(False)
+        self.ui.set_default_values_random.setEnabled(False)
+        self.clear_random()
 
-    def value_lenRandom(self):
-        self.length_random = self.ui.array_len_2.value()
-        self.ui.display_arraylen_2.setText(str(self.length_random))
+    # Function of array size value taken from dial to show next to line edit
+    def value_len_random(self):
+        self.length_random = self.ui.array_len_random.value()
+        self.ui.display_arraylen_random.setText(str(self.length_random))
 
+    # Function to write number values to a bar chart.
     def autolabel_random(self, rects):
         for rect in self.rects:
             height = rect.get_height()
@@ -2030,12 +2036,13 @@ class MainWindow(QMainWindow):
                 self.ui.MplSort_random.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
                                                         '%d' % int(height), ha='center', va='top')
 
-    def create_arrayRandom(self):
+    # %% Creating a random array and display it on the screen
+    def create_array_random(self):
         if self.ui.random_array_checkbox.isChecked():  # function written to create an array
             try:
                 try:
-                    self.lower_random = int(self.ui.lower_range_2.text())
-                    self.upper_random = int(self.ui.upper_range_2.text())
+                    self.lower_random = int(self.ui.lower_range_random.text())
+                    self.upper_random = int(self.ui.upper_range_random.text())
                     if (self.lower_random != 0 and self.upper_random != 0) or self.length_random != 0:
                         if self.lower_random < self.upper_random:
                             if abs(self.upper_random - self.lower_random) > self.length_random:
@@ -2047,7 +2054,7 @@ class MainWindow(QMainWindow):
                                                                            len(self.unsorted_array_random))
                                 self.t = np.linspace(1, len(self.unsorted_array_random),
                                                      len(self.unsorted_array_random))
-                                self.ui.disp_unsorted_array_2.setText(
+                                self.ui.disp_unsorted_array_random.setText(
                                     str(self.unsorted_array_random))  # Display on the interface
                                 self.ui.MplSort_random.canvas.axes.clear()
                                 self.ui.MplSort_random.canvas.axes.set_title("Unsorted Array")
@@ -2072,13 +2079,13 @@ class MainWindow(QMainWindow):
                                                 "Please make the operations in order!")
 
         if self.ui.create_array_checkbox.isChecked():
-            self.ui.disp_unsorted_array_2.setReadOnly(False)
+            self.ui.disp_unsorted_array_random.setReadOnly(False)
             try:
-                self.unsorted_array_random = self.ui.disp_unsorted_array_2.toPlainText().split(',')
+                self.unsorted_array_random = self.ui.disp_unsorted_array_random.toPlainText().split(',')
                 for i in range(len(self.unsorted_array_random)):
                     self.unsorted_array_random[i] = int(self.unsorted_array_random[i])
                 self.t = np.linspace(1, len(self.unsorted_array_random), len(self.unsorted_array_random))
-                self.ui.disp_unsorted_array_2.setText(str(self.unsorted_array_random))  # Display on the interface
+                self.ui.disp_unsorted_array_random.setText(str(self.unsorted_array_random))  # Display on the interface
                 self.ui.MplSort_random.canvas.axes.clear()
                 self.ui.MplSort_random.canvas.axes.set_title("Unsorted Array")
                 self.rects = self.ui.MplSort_random.canvas.axes.bar(self.t, self.unsorted_array_random,
@@ -2090,17 +2097,18 @@ class MainWindow(QMainWindow):
             except ValueError:
                 # If the user presses another button without pressing this button, an error is given
                 self.msg = QMessageBox.critical(self, "Error", "Please enter an array as valid format!")
-                self.ui.disp_unsorted_array_2.clear()
+                self.ui.disp_unsorted_array_random.clear()
                 self.unsorted_array_random = []
 
-    def sorting_arrayRandom(self):
+    # %%Sorting a random array and display on the screen
+    def sorting_array_random(self):
         if len(self.unsorted_array_random) != 0:
             temp_array1 = tuple(self.unsorted_array_random)
             temp_array1 = list(temp_array1)
             # Calling the insertion sort function from the project operations file for sorting
             self.sorted_array_random = random_select.insertionSort(temp_array1)
             # Display on the interface
-            self.ui.disp_sorted_array_2.setText(str(self.sorted_array_random))
+            self.ui.disp_sorted_array_random.setText(str(self.sorted_array_random))
         # self.t = np.lin-space(1, len(self.unsorted_array), len(self.unsorted_array))
         # self.ui.MplSort.canvas.axes.clear()
         # self.ui.MplSort.canvas.axes.set_title("Sorted Array")
@@ -2110,37 +2118,40 @@ class MainWindow(QMainWindow):
         else:
             pass
 
-    def find_numberRandom(self):
+    # %%Finding the index of the searched number and display on the screen
+    def find_number_random(self):
         try:
             if len(self.sorted_array_random) != 0:
-                self.number = int(self.ui.take_number_2.text())  # Getting the desired number from the user.
-                if self.number <= len(
+                self.number_random = int(self.ui.take_number_random.text())  # Getting the desired number from the user.
+                if self.number_random <= len(
                         self.unsorted_array_random):  # Checking whether the desired number is in the array.
                     # Calling the binary search function from the project operations file for search.
-                    self.smallest = self.randomized_select(self.unsorted_array_random, 0,
-                                                           len(self.sorted_array_random) - 1,
-                                                           self.number)
+                    self.smallest_random = self.randomized_select_random(self.unsorted_array_random, 0,
+                                                                         len(self.sorted_array_random) - 1,
+                                                                         self.number_random)
                     # Display of result.
-                    self.ui.result_edit_2.setText(
-                        "{}. smallest array is '{}'.".format(str(self.number), str(self.smallest)))
+                    self.ui.result_edit_random.setText(
+                        "{}. smallest array is '{}'.".format(str(self.number_random), str(self.smallest_random)))
 
                 else:
                     # Give an error if the requested number is not in the array.
                     self.msg3 = QMessageBox.information(self, "Error", "Please enter a sorted array elements...")
                     # Clean the section where the user entered numbers.
-                    self.ui.take_number_2.clear()
-                    self.ui.result_edit_2.clear()
+                    self.ui.take_number_random.clear()
+                    self.ui.result_edit_random.clear()
             else:
                 self.msg = QMessageBox.critical(self, "Error", "Please make the operations in order!")
         except ValueError:
             # Error if user enters anything other than number.
             self.msg = QMessageBox.information(self, "Error", "Please enter a valid number...")
             # Clean the section where the user entered numbers.
-            self.ui.take_number_2.clear()
+            self.ui.take_number_random.clear()
         except AttributeError:
             self.msg = QMessageBox.information(self, "Error", "Please create an array...")
 
-    def partition(self, array, p, r):
+    # %%
+
+    def partition_random_random(self, array, p, r):
         x = array[r]
         i = p - 1
         for j in range(p, r):
@@ -2160,7 +2171,7 @@ class MainWindow(QMainWindow):
         time.sleep(1)
         return i + 1
 
-    def randomized_partition(self, array, p, r):
+    def randomized_partition_random(self, array, p, r):
         i = random.randint(p, r)
         self.x = np.arange(len(array))
         self.ui.MplSort_random.canvas.axes.clear()
@@ -2168,9 +2179,9 @@ class MainWindow(QMainWindow):
         self.autolabel_random(self.rects)
         self.ui.MplSort_random.canvas.draw()
         array[r], array[i] = array[i], array[r]
-        return self.partition(array, p, r)
+        return self.partition_random_random(array, p, r)
 
-    def randomized_select(self, array, p, q, i):
+    def randomized_select_random(self, array, p, q, i):
         if p == q:
             self.ui.MplSort_random.canvas.axes.clear()
             self.rects = self.ui.MplSort_random.canvas.axes.bar(self.x, array, color="orange", edgecolor="black")
@@ -2179,7 +2190,7 @@ class MainWindow(QMainWindow):
             self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
             self.ui.MplSort_random.canvas.draw()
             return array[p]
-        r = self.randomized_partition(array, p, q)
+        r = self.randomized_partition_random(array, p, q)
         k = r - p + 1
         if i == k:
             self.ui.MplSort_random.canvas.axes.clear()
@@ -2190,27 +2201,28 @@ class MainWindow(QMainWindow):
             self.ui.MplSort_random.canvas.draw()
             return array[r]
         elif i < k:
-            return self.randomized_select(array, p, r - 1, i)
+            return self.randomized_select_random(array, p, r - 1, i)
         else:
-            return self.randomized_select(array, r + 1, q, i - k)
+            return self.randomized_select_random(array, r + 1, q, i - k)
 
-    def clearRandom(self):
+    # %% Clear post-values with clear button
+    def clear_random(self):
         self.lower_random = 0
         self.upper_random = 0
         self.length_random = 0
         self.unsorted_array_random = []
         self.sorted_array_random = []
-        self.ui.lower_range_2.clear()
-        self.ui.upper_range_2.clear()
-        self.ui.display_arraylen_2.clear()
-        self.ui.disp_unsorted_array_2.clear()
-        self.ui.disp_sorted_array_2.clear()
-        self.ui.take_number_2.clear()
-        self.ui.result_edit_2.clear()
+        self.ui.lower_range_random.clear()
+        self.ui.upper_range_random.clear()
+        self.ui.display_arraylen_random.clear()
+        self.ui.disp_unsorted_array_random.clear()
+        self.ui.disp_sorted_array_random.clear()
+        self.ui.take_number_random.clear()
+        self.ui.result_edit_random.clear()
         self.ui.MplSort_random.canvas.axes.clear()
         self.ui.MplSort_random.canvas.axes.patch.set_alpha(0)
         self.ui.MplSort_random.canvas.draw()
-        self.ui.array_len_2.setValue(0)
+        self.ui.array_len_random.setValue(0)
 
     # SHOW ==> Info Page
     def uni_logo(self):
