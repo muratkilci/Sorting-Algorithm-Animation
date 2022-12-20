@@ -28,8 +28,7 @@ class CreateAcc(QMainWindow):
         self.ui = Ui_MainWindow()
         self.setWindowTitle('Login')
         self.ui.setupUi(self)
-        self.app= main.MainWindow()
-        #self.login = login_gui.LoginWindow()
+        self.app = main.MainWindow()
         self.ui.createButton.clicked.connect(self.createFunction)
 
     def createFunction(self):
