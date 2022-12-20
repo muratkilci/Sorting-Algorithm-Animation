@@ -23,3 +23,4 @@ class MplSort(QWidget):
 		self.canvas.axes = self.canvas.figure.add_subplot(111)
 		self.canvas.axes.patch.set_alpha(0)
 		self.setLayout(vertical_layout)
+		plt.close("all")

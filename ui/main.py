@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 import speech_recognition as sr
 from PyQt5.uic.properties import QtWidgets
 
-from ui import login_gui
+from ui import login_gui, help_gui
 from ui_functions import *
 from utils_operations import binarysearch
 from ui_main import Ui_MainWindow
@@ -42,6 +42,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
 
         ## TOGGLE/BURGUER MENU
         self.ui.Btn_Toggle.clicked.connect(lambda: UIFunctions.toggleMenu(self, 250, True))
@@ -146,13 +147,37 @@ class MainWindow(QMainWindow):
         self.ui.mic_btn_binary.clicked.connect(self.voice_binary)
 
         # SHOW ==> Matrix Multiplication Page
+        self.ui.row_m1.returnPressed.connect(self.inputs_matrix)
+        self.ui.column_m1.returnPressed.connect(self.inputs_matrix)
+        self.ui.row_m2.returnPressed.connect(self.inputs_matrix)
+        self.ui.column_m2.returnPressed.connect(self.inputs_matrix)
+        self.ui.row_m1.setValidator(QIntValidator(0, 10, self))
+        self.ui.column_m1.setValidator(QIntValidator(0, 10, self))
+        self.ui.row_m2.setValidator(QIntValidator(0, 10, self))
+        self.ui.column_m2.setValidator(QIntValidator(0, 10, self))
+        self.ui.create_matrix_btn_1.clicked.connect(self.matrix1_user_matrix)
+        self.ui.create_matrix_btn_2.clicked.connect(self.matrix2_user_matrix)
+        self.ui.generate_matrix_btn.clicked.connect(self.random_matrices_matrix)
+        self.ui.multiply_btn.clicked.connect(self.multiplication_matrix)
+        self.ui.clear_btn_matrix.clicked.connect(self.clear_matrix)
+        self.ui.determinant_btn_1.clicked.connect(self.determinant1_matrix)
+        self.ui.determinant_btn_2.clicked.connect(self.determinant2_matrix)
+        self.ui.inverse_btn_1.clicked.connect(self.inverse1_matrix)
+        self.ui.inverse_btn_2.clicked.connect(self.inverse2_matrix)
+        self.ui.transpose_btn_1.clicked.connect(self.transpose1_matrix)
+        self.ui.transpose_btn_2.clicked.connect(self.transpose2_matrix)
+        self.ui.rank_btn_1.clicked.connect(self.rank1_matrix)
+        self.ui.rank_btn_2.clicked.connect(self.rank2_matrix)
+        self.ui.multiplyby_btn.clicked.connect(self.mult_scalar1_matrix)
+        self.ui.multiplyby_btn_2.clicked.connect(self.mult_scalar2_matrix)
+        self.visible1_false_matrix()
+        self.visible2_false_matrix()
+        self.ui.mic_btn_matrix.clicked.connect(self.voice_matrix)
 
         # SHOW ==> Randomize Selection Page
         self.ui.array_len_random.setMinimum(0)  # Fixing the dial to min 1 max 50.
         self.ui.array_len_random.setMaximum(50)  # Link to print the number on the dial on the line edit next to it.
-        # Link to print the number on the dial on the line edit next to it.
         self.ui.array_len_random.valueChanged.connect(self.value_len_random)
-        # Connecting the create array button with the corresponding function.
         self.ui.createanarray_btn_random.clicked.connect(self.create_array_random)
         self.ui.createanarray_btn_random.clicked.connect(self.sorting_array_random)
         self.ui.set_default_values_random.clicked.connect(self.set_default_array_random)
@@ -167,10 +192,7 @@ class MainWindow(QMainWindow):
         self.msg3 = None
         self.smallest_random = None
         self.number_random = None
-        # Back to main menu.
-        # Connecting the find number button with the corresponding function.
         self.ui.find_btn_random.clicked.connect(self.find_number_random)
-        # Linking the clear button with the corresponding function.
         self.ui.clear_btn_random.clicked.connect(self.clear_random)
         self.ui.random_array_checkbox.setChecked(True)
         self.ui.random_array_checkbox.toggled.connect(self.random_array_random)
@@ -185,11 +207,14 @@ class MainWindow(QMainWindow):
         self.ui.mic_btn_random.clicked.connect(self.voice_random)
 
         # SHOW ==> Info Page
+        self.inffButton = help_gui.HelpWindow()
         self.ui.logoButton.clicked.connect(self.uni_logo)
         self.ui.youtubeButton.clicked.connect(self.youtube_logo)
         self.ui.githubButton.clicked.connect(self.github_logo)
         self.ui.linkedInlBUtton.clicked.connect(self.linkedIn_logo)
         self.ui.instagramButton.clicked.connect(self.intagram_logo)
+        self.ui.supportButton.clicked.connect(self.support_logo)
+        self.ui.infoButton.clicked.connect(self.info_logo)
         self.ui.logOut.clicked.connect(self.log_out)
 
     # SHOW  ==> Sort Page
@@ -215,6 +240,7 @@ class MainWindow(QMainWindow):
         r = sr.Recognizer()
         microphoneValue = ""
         with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source)
             try:
                 self.statusBar().showMessage('Start talking...')
                 audio = r.listen(source)
@@ -1528,6 +1554,7 @@ class MainWindow(QMainWindow):
         r = sr.Recognizer()
         microphoneValue = ""
         with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source)
             try:
                 self.statusBar().showMessage('Start talking...')
                 audio = r.listen(source)
@@ -1639,6 +1666,7 @@ class MainWindow(QMainWindow):
         r = sr.Recognizer()
         microphoneValue = ""
         with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source)
             try:
                 self.statusBar().showMessage('Start talking...')
                 audio = r.listen(source)
@@ -1738,7 +1766,6 @@ class MainWindow(QMainWindow):
         self.length_array_binary = self.ui.array_len_binary.value()
         self.ui.display_arraylen_binary.setText(str(self.length_array_binary))
 
-    # Function to write number values to a bar chart.
     def autolabel_binary(self, rects):
         for rect in self.rects:
             height = rect.get_height()
@@ -1749,7 +1776,6 @@ class MainWindow(QMainWindow):
                 self.ui.MplSort_binary.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
                                                         '%d' % int(height), ha='center', va='top')
 
-    # %%Creating a random array and display it on the screen
     def create_array_binary(self):
         if self.ui.checkBox_binary.isChecked():  # function written to create an array
             try:
@@ -1812,7 +1838,6 @@ class MainWindow(QMainWindow):
                 self.ui.disp_unsorted_array_binary.clear()
                 self.unsorted_array_binary = []
 
-    # %%Sorting a random array and display on the screen
     def sortingarray_binary(self):
         try:
             if len(self.unsorted_array_binary) != 0:
@@ -1834,7 +1859,6 @@ class MainWindow(QMainWindow):
                                             "Please make the operations in order!")  # If the user presses another button without pressing this button, an error is given
             self.ui.disp_sorted_array_binary.clear()
 
-    # %%Finding the index of the searched number and display on the screen
     def find_number_binary(self):
         try:
             if len(self.sorted_array_binary) != 0:
@@ -1921,7 +1945,628 @@ class MainWindow(QMainWindow):
         self.ui.array_len_binary.setValue(0)
 
     # SHOW ==> Matrix Multiplication Page
+    def voice_matrix(self):
+        r = sr.Recognizer()
+        microphoneValue = ""
+        with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source)
+            try:
+                self.statusBar().showMessage('Start talking...')
+                audio = r.listen(source)
+                microphoneValue = (r.recognize_google(audio))
+                self.statusBar().showMessage('Stop talking...')
+                print(microphoneValue)
+                try:
+                    if microphoneValue == 'random Matrix':
+                        try:
+                            self.random_matrices_matrix()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    elif microphoneValue == 'multiply':
+                        try:
+                            self.multiplication_matrix()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    elif microphoneValue == 'clear':
+                        try:
+                            self.clear()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    elif microphoneValue == 'close':
+                        try:
+                            self.close()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    elif microphoneValue == 'create Matrix one':
+                        try:
+                            self.matrix1_user_matrix()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    elif microphoneValue == 'create Matrix two':
+                        try:
+                            self.matrix2_user_matrix()
+                            microphoneValue = ""
+                        except:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
 
+                    elif self.ui.determinant_btn_1.isVisible():
+                        if microphoneValue == 'determinant Matrix 1':
+                            try:
+                                self.determinant1_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+
+                        elif microphoneValue == 'inverse Matrix one':
+                            try:
+                                self.inverse1_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        elif microphoneValue == 'transpose Matrix one':
+                            try:
+                                self.transpose1_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        elif microphoneValue == 'rank Matrix one':
+                            try:
+                                self.rank1_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        elif microphoneValue == 'multiply Matrix one':
+                            try:
+                                self.mult_scalar1_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        else:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+
+                    elif self.ui.determinant_btn_2.isVisible:
+                        if microphoneValue == 'determinant Matrix two':
+                            try:
+                                self.determinant2_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        elif microphoneValue == 'inverse Matrix two':
+                            try:
+                                self.inverse2_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        elif microphoneValue == 'transpose Matrix two':
+                            try:
+                                self.transpose2_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        elif microphoneValue == 'rank Matrix two':
+                            try:
+                                self.rank2_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        elif microphoneValue == 'multiply Matrix two':
+                            try:
+                                self.mult_scalar2_matrix()
+                                microphoneValue = ""
+                            except:
+                                QMessageBox.warning(self, "ERROR", "Try Again...")
+                        else:
+                            QMessageBox.warning(self, "ERROR", "Try Again...")
+                    else:
+                        QMessageBox.warning(self, "ERROR", "Try Again...")
+
+                except:
+                    QMessageBox.warning(self, "ERROR", "Try again...")
+            except sr.UnknownValueError:
+                QMessageBox.information(self, "ERROR", "Sorry, Cant understand, Please say again..")
+            except sr.RequestError as e:
+                QMessageBox.information(self, "ERROR",
+                                        "Could not request results from Google Speech Recognition service; {0}".format(
+                                            e))
+            except sr.RequestError:
+                QMessageBox.information(self, "ERROR", "No Internet Connection...")
+
+    def inputs_matrix(self):
+        if self.ui.row_m1.text() != '' or self.ui.column_m1.text() != '':
+            try:
+                # Getting row number of first matrix from line edit
+                self.number_of_rows_matrix1 = int(self.ui.row_m1.text())
+                # Getting column number of first matrix from line edit
+                self.number_of_columns_matrix1 = int(self.ui.column_m1.text())
+                self.matrix1 = [(i, j) for i in range(int(self.ui.column_m1.text())) for j in
+                                range(int(self.ui.row_m1.text()))]
+            except ValueError:
+                pass
+        if self.ui.row_m2.text() != '' or self.ui.column_m2.text() != '':
+            try:
+                self.number_of_rows_matrix2 = int(self.ui.row_m2.text())
+                # §self.ui.row_m2.setText(str(int(self.ui.column_m1.text()))) #the number of rows of the second
+                # matrix appears as the number of columns of the first according to the matrix multiplication rule
+
+                # Getting row number of first matrix from line edit
+                self.number_of_columns_matrix2 = int(self.ui.column_m2.text())
+                self.matrix2 = [(i, j) for i in range(int(self.ui.column_m2.text())) for j in
+                                range(int(self.ui.row_m2.text()))]
+            except ValueError:
+                pass
+
+    def visible1_false_matrix(self):
+        self.ui.label_6.setVisible(False)
+        self.ui.line.setVisible(False)
+        self.ui.determinant_btn_1.setVisible(False)
+        self.ui.display_det_1.setVisible(False)
+        self.ui.inverse_btn_1.setVisible(False)
+        self.ui.transpose_btn_1.setVisible(False)
+        self.ui.rank_btn_1.setVisible(False)
+        self.ui.multiplyby_btn.setVisible(False)
+        self.ui.takenumbermult_1.setVisible(False)
+        self.ui.rank_1.setVisible(False)
+
+    def visible1_true_matrix(self):
+        self.ui.label_6.setVisible(True)
+        self.ui.line.setVisible(True)
+        self.ui.determinant_btn_1.setVisible(True)
+        self.ui.display_det_1.setVisible(True)
+        self.ui.inverse_btn_1.setVisible(True)
+        self.ui.transpose_btn_1.setVisible(True)
+        self.ui.rank_btn_1.setVisible(True)
+        self.ui.multiplyby_btn.setVisible(True)
+        self.ui.takenumbermult_1.setVisible(True)
+        self.ui.rank_1.setVisible(True)
+
+    def visible2_false_matrix(self):
+        self.ui.label_7.setVisible(False)
+        self.ui.line_2.setVisible(False)
+        self.ui.determinant_btn_2.setVisible(False)
+        self.ui.inverse_btn_2.setVisible(False)
+        self.ui.transpose_btn_2.setVisible(False)
+        self.ui.rank_btn_2.setVisible(False)
+        self.ui.multiplyby_btn_2.setVisible(False)
+        self.ui.takenumbermult_2.setVisible(False)
+        self.ui.rank_2.setVisible(False)
+        self.ui.display_det_2.setVisible(False)
+
+    def visible2_true_matrix(self):
+        self.ui.label_7.setVisible(True)
+        self.ui.line_2.setVisible(True)
+        self.ui.determinant_btn_2.setVisible(True)
+        self.ui.inverse_btn_2.setVisible(True)
+        self.ui.transpose_btn_2.setVisible(True)
+        self.ui.rank_btn_2.setVisible(True)
+        self.ui.multiplyby_btn_2.setVisible(True)
+        self.ui.takenumbermult_2.setVisible(True)
+        self.ui.rank_2.setVisible(True)
+        self.ui.display_det_2.setVisible(True)
+
+    def random_matrices_matrix(self):
+        self.visible1_false_matrix()
+        self.visible2_false_matrix()
+        if self.ui.row_m1.text() == '' and self.ui.column_m1.text() == '' and self.ui.row_m2.text() == '' and self.ui.column_m2.text() == '':
+            self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+        else:
+            try:
+                # setting the row number of the first table as the number of rows received
+                self.ui.Matrix_1.setRowCount(int(self.ui.row_m1.text()))
+                # setting the column number of the first table as the number of columns received
+                self.ui.Matrix_1.setColumnCount(int(self.ui.column_m1.text()))
+                # Creating random matrices with the help of a function I called in another file
+                self.matrices = create_matrix.randommatrix(int(self.ui.row_m1.text()), int(self.ui.column_m1.text()),
+                                                           int(self.ui.row_m2.text()), int(self.ui.column_m2.text()))
+                # Determining the matrix at index 0 as the first matrix among the matrices in the list returned from
+                # the function I wrote
+                self.matrix1 = self.matrices[0]
+
+                for i, row_1 in enumerate(
+                        self.matrix1):  # Placing the first random matrix created using the enumerate function into the first table
+                    for j, val in enumerate(row_1):
+                        newItem1 = QtWidgets.QTableWidgetItem(str(val))
+                        newItem1.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                        self.ui.Matrix_1.setItem(i, j, newItem1)
+
+                # setting the number of rows of the second matrix as the number of columns of the first matrix
+                self.ui.Matrix_2.setRowCount(int(self.ui.row_m2.text()))
+                # setting the column number of the second table as the number of columns received
+                self.ui.Matrix_2.setColumnCount(int(self.ui.column_m2.text()))
+                # Determining the matrix at index 1 as the first matrix among the matrices in the list returned from
+                # the function I wrote
+                self.matrix2 = self.matrices[1]
+                for i in range(int(self.ui.column_m1.text())):
+                    self.ui.Matrix_1.setColumnWidth(i, 500 / int(self.ui.column_m1.text()))
+
+                for i in range(int(self.ui.row_m1.text())):  # set the row of first matrix height to 50 px
+                    self.ui.Matrix_1.setRowHeight(i, 300 / int(self.ui.row_m1.text()))
+
+                for i in range(int(self.ui.column_m2.text())):
+                    self.ui.Matrix_2.setColumnWidth(i, 500 / int(self.ui.column_m2.text()))
+
+                for i in range(int(self.ui.row_m2.text())):  # set the row of second matrix height to 50 px
+                    self.ui.Matrix_2.setRowHeight(i, 300 / int(self.ui.row_m2.text()))
+
+                for k, row_2 in enumerate(
+                        self.matrix2):  # Placing the second random matrix created using the enumerate function into the second table
+                    for l, value in enumerate(row_2):
+                        newItem2 = QtWidgets.QTableWidgetItem(str(value))
+                        newItem2.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                        self.ui.Matrix_2.setItem(k, l, newItem2)
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def matrix1_user_matrix(self):
+        self.ui.Matrix_1.clear()  # cleaning the table of first matrix
+        if self.ui.row_m1.text() == '' or self.ui.column_m1.text() == '':
+            # if self.ui.row_m1.text()=='' or self.ui.column_m1.text()=='' and self.ui.row_m2.text()=='' or
+            # self.ui.column_m2.text()=='':
+            self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+        else:
+            try:
+                self.visible1_true_matrix()
+                # setting the row number of the first table as the number of rows received
+                self.ui.Matrix_1.setRowCount(int(self.ui.row_m1.text()))
+                # setting the column number of the first table as the number of columns received
+                self.ui.Matrix_1.setColumnCount(int(self.ui.column_m1.text()))
+                for i in range(int(self.ui.column_m1.text())):
+                    self.ui.Matrix_1.setColumnWidth(i, 500 / int(self.ui.column_m1.text()))
+
+                for i in range(int(self.ui.row_m1.text())):  # set the row of first matrix height to 50 px
+                    self.ui.Matrix_1.setRowHeight(i, 300 / int(self.ui.row_m1.text()))
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def matrix2_user_matrix(self):
+        self.ui.Matrix_2.clear()  # cleaning the table of second matrix
+        if self.ui.row_m2.text() == '' or self.ui.column_m2.text() == '':
+            # if self.ui.row_m1.text()=='' or self.ui.column_m1.text()=='' and self.ui.row_m2.text()=='' or
+            # self.ui.column_m2.text()=='':
+            self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+        else:
+            try:
+                self.visible2_true_matrix()
+                self.ui.Matrix_2.setRowCount(
+                    int(self.ui.row_m2.text()))  # setting the number of rows of the second matrix as the number of columns of the first matrix
+                self.ui.Matrix_2.setColumnCount(
+                    int(self.ui.column_m2.text()))  # setting the column number of the second table as the number of columns received
+                for i in range(int(self.ui.column_m2.text())):
+                    self.ui.Matrix_2.setColumnWidth(i, 500 / int(self.ui.column_m2.text()))
+
+                for i in range(int(self.ui.row_m2.text())):  # set the row of second matrix height to 50 px
+                    self.ui.Matrix_2.setRowHeight(i, 300 / int(self.ui.row_m2.text()))
+
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def determinant1_matrix(self):
+        self.matrix1 = [[(i, j) for i in range(int(self.ui.column_m1.text()))] for j in
+                        range(int(self.ui.row_m1.text()))]
+        if self.ui.row_m1.text() != self.ui.column_m1.text():
+            self.msg = QMessageBox.critical(self, "Error",
+                                            "Last 2 dimensions of the array must be square!"
+                                            "\nPlease check your first matrix row count and column count......")
+        else:
+            try:
+                for i in range(len(self.matrix1)):
+                    for j in range(len(self.matrix1[0])):
+                        self.matrix1[i][j] = float(self.ui.Matrix_1.item(i, j).text())
+
+                print(self.matrix1)
+                self.matrix1 = np.asarray(self.matrix1)
+                self.det = np.linalg.det(self.matrix1)
+                self.ui.display_det_1.setText(str(math.ceil(self.det)))
+            except ValueError:
+                self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def determinant2_matrix(self):
+        self.matrix2 = [[(i, j) for i in range(int(self.ui.column_m2.text()))] for j in
+                        range(int(self.ui.row_m2.text()))]
+        if self.ui.row_m2.text() != self.ui.column_m2.text():
+            self.msg = QMessageBox.critical(self, "Error",
+                                            "Last 2 dimensions of the array must be square!"
+                                            "\nPlease check your second matrix row count and column count...")
+        else:
+            try:
+                for i in range(len(self.matrix2)):
+                    for j in range(len(self.matrix2[0])):
+                        self.matrix2[i][j] = float(self.ui.Matrix_2.item(i, j).text())
+                self.matrix2 = np.asarray(self.matrix2)
+                self.det2 = np.linalg.det(self.matrix2)
+                print("determinant")
+                print(self.det)
+                self.ui.display_det_2.setText(str(math.ceil(self.det2)))
+            except ValueError:
+                self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def inverse1_matrix(self):
+        if self.ui.row_m1.text() != self.ui.column_m1.text():
+            self.msg = QMessageBox.critical(self, "Error",
+                                            "Last 2 dimensions of the array must be square!\nPlease check your first matrix row count and column count......")
+        else:
+            try:
+                for i in range(len(self.matrix1)):
+                    for j in range(len(self.matrix1[0])):
+                        self.matrix1[i][j] = float(self.ui.Matrix_1.item(i, j).text())
+                self.matrix1 = np.asarray(self.matrix1)
+                self.det = np.linalg.det(self.matrix1)
+                if self.det != 0:
+                    self.matrix1 = np.asarray(self.matrix1)
+                    self.inverse_1 = np.linalg.inv(self.matrix1)
+                    for i, row_1 in enumerate(
+                            self.inverse_1):  # Placing the first random matrix created using the enumerate function into the first table
+                        for j, val in enumerate(row_1):
+                            newItem1 = QtWidgets.QTableWidgetItem(str(val))
+                            newItem1.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                            self.ui.Matrix_1.setItem(i, j, newItem1)
+
+                else:
+                    self.msg = QMessageBox.critical(self, "Error",
+                                                    "For inverse matrix, determinant must be non-zero...")
+            except ValueError:
+                self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def inverse2_matrix(self):
+        if self.ui.row_m2.text() != self.ui.column_m2.text():
+            self.msg = QMessageBox.critical(self, "Error",
+                                            "Last 2 dimensions of the array must be square!\nPlease check your first matrix row count and column count......")
+        else:
+            try:
+                for i in range(len(self.matrix2)):
+                    for j in range(len(self.matrix2[0])):
+                        self.matrix2[i][j] = float(self.ui.Matrix_2.item(i, j).text())
+                self.matrix2 = np.asarray(self.matrix2)
+                self.det = np.linalg.det(self.matrix2)
+                if self.det != 0:
+                    self.matrix2 = np.asarray(self.matrix2)
+                    self.inverse_2 = np.linalg.inv(self.matrix2)
+                    for k, row_2 in enumerate(
+                            self.inverse_2):  # Placing the second random matrix created using the enumerate function into the second table
+                        for l, value in enumerate(row_2):
+                            newItem2 = QtWidgets.QTableWidgetItem(str(value))
+                            newItem2.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                            self.ui.Matrix_2.setItem(k, l, newItem2)
+
+                else:
+                    self.msg = QMessageBox.critical(self, "Error",
+                                                    "For inverse matrix, determinant must be non-zero...")
+            except ValueError:
+                self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def transpose1_matrix(self):
+        try:
+            for i in range(len(self.matrix1)):
+                for j in range(len(self.matrix1[0])):
+                    self.matrix1[i][j] = float(self.ui.Matrix_1.item(i, j).text())
+            self.matrix1 = np.asarray(self.matrix1)
+            self.matrix1 = self.matrix1.transpose()
+            rows = len(self.matrix1)
+            columns = len(self.matrix1[0])
+            self.ui.Matrix_1.setRowCount(len(self.matrix1))  # cleaning the row value of table of first matrix
+            self.ui.Matrix_1.setColumnCount(len(self.matrix1[0]))  # cleaning the column value of table of first matrix
+            for i in range(columns):
+                self.ui.Matrix_1.setColumnWidth(i, 500 / columns)
+            for i in range(rows):  # set the row of second matrix height to 50 px
+                self.ui.Matrix_1.setRowHeight(i, 300 / rows)
+            for i, row_1 in enumerate(
+                    self.matrix1):  # Placing the first random matrix created using the enumerate function into the first table
+                for j, val in enumerate(row_1):
+                    newItem1 = QtWidgets.QTableWidgetItem(str(val))
+                    newItem1.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                    self.ui.Matrix_1.setItem(i, j, newItem1)
+
+        except ValueError:
+            self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+        except AttributeError:
+            self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def transpose2_matrix(self):
+        try:
+            for i in range(len(self.matrix2)):
+                for j in range(len(self.matrix2[0])):
+                    self.matrix2[i][j] = float(self.ui.Matrix_2.item(i, j).text())
+            self.matrix2 = np.asarray(self.matrix2)
+            self.matrix2 = self.matrix2.transpose()
+            rows = len(self.matrix2)
+            columns = len(self.matrix2[0])
+            self.ui.Matrix_2.setRowCount(len(self.matrix2))  # cleaning the row value of table of first matrix
+            self.ui.Matrix_2.setColumnCount(len(self.matrix2[0]))  # cleaning the column value of table of first matrix
+            for i in range(columns):
+                self.ui.Matrix_2.setColumnWidth(i, 500 / columns)
+
+            for i in range(rows):  # set the row of second matrix height to 50 px
+                self.ui.Matrix_2.setRowHeight(i, 300 / rows)
+            for k, row_2 in enumerate(
+                    self.matrix2):  # Placing the second random matrix created using the enumerate function into the second table
+                for l, value in enumerate(row_2):
+                    newItem2 = QtWidgets.QTableWidgetItem(str(value))
+                    newItem2.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                    self.ui.Matrix_2.setItem(k, l, newItem2)
+
+        except ValueError:
+            self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+        except AttributeError:
+            self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def rank1_matrix(self):
+        if self.ui.row_m1.text() != self.ui.column_m1.text():
+            self.msg = QMessageBox.critical(self, "Error",
+                                            "Last 2 dimensions of the array must be square!\nPlease check your first "
+                                            "matrix row count and column count......")
+        else:
+            try:
+                for i in range(len(self.matrix1)):
+                    for j in range(len(self.matrix1[0])):
+                        self.matrix1[i][j] = float(self.ui.Matrix_1.item(i, j).text())
+                self.matrix1 = np.asarray(self.matrix1)
+                self.det = np.linalg.det(self.matrix1)
+                if self.det != 0:
+                    self.matrix1 = np.asarray(self.matrix1)
+                    self.rank_1 = np.linalg.matrix_rank(self.matrix1)
+                    self.ui.rank_1.setText(str(self.rank_1))
+                else:
+                    self.msg = QMessageBox.critical(self, "Error", "The determinant must be non-zero...")
+
+            except ValueError:
+                self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def rank2_matrix(self):
+        if self.ui.row_m2.text() != self.ui.column_m2.text():
+            self.msg = QMessageBox.critical(self, "Error",
+                                            "Last 2 dimensions of the array must be square!\nPlease check your first matrix row count and column count......")
+        else:
+            try:
+                for i in range(len(self.matrix2)):
+                    for j in range(len(self.matrix2[0])):
+                        self.matrix2[i][j] = float(self.ui.Matrix_2.item(i, j).text())
+                self.matrix2 = np.asarray(self.matrix2)
+                self.det = np.linalg.det(self.matrix2)
+                if self.det != 0:
+                    self.matrix2 = np.asarray(self.matrix2)
+                    self.rank_2 = np.linalg.matrix_rank(self.matrix2)
+                    self.ui.rank_2.setText(str(self.rank_2))
+                else:
+                    self.msg = QMessageBox.critical(self, "Error", "The determinant must be non-zero...")
+
+            except ValueError:
+                self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+            except AttributeError:
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def mult_scalar1_matrix(self):
+        try:
+            if self.ui.takenumbermult_1.text() == '':
+                self.msg = QMessageBox.critical(self, "Error", "Please enter a scalar number...")
+                self.ui.takenumbermult_1.setStyleSheet("background-color: rgb(255,0,0);\n"
+                                                       "border-radius: 10px ;\n"
+                                                       "border-width: 3px;\n"
+                                                       "border-color: rgb(170,74,48);")
+                time.sleep(5)
+                self.ui.takenumbermult_1.setStyleSheet("background-color: rgb(255, 212, 169);\n"
+                                                       "border-radius: 10px ;\n"
+                                                       "border-width: 3px;\n"
+                                                       "border-color: rgb(170,74,48);")
+            else:
+                scalar = int(self.ui.takenumbermult_1.text())
+                for i in range(len(self.matrix1)):
+                    for j in range(len(self.matrix1[0])):
+                        self.matrix1[i][j] = float(self.ui.Matrix_1.item(i, j).text())
+                self.matrix1 = np.asarray(self.matrix1)
+                self.new_matrix1 = scalar * self.matrix1
+                for k, row_1 in enumerate(
+                        self.new_matrix1):  # Placing the second random matrix created using the enumerate function into the second table
+                    for l, value in enumerate(row_1):
+                        newItem1 = QtWidgets.QTableWidgetItem(str(value))
+                        newItem1.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                        self.ui.Matrix_1.setItem(k, l, newItem1)
+
+        except ValueError:
+            self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+        except AttributeError:
+            self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def mult_scalar2_matrix(self):
+        try:
+            if self.ui.takenumbermult_1.text() == '':
+                self.msg = QMessageBox.critical(self, "Error", "Please enter a scalar number...")
+            else:
+                scalar = int(self.ui.takenumbermult_2.text())
+                for i in range(len(self.matrix2)):
+                    for j in range(len(self.matrix2[0])):
+                        self.matrix2[i][j] = float(self.ui.Matrix_2.item(i, j).text())
+                self.matrix2 = np.asarray(self.matrix2)
+                self.new_matrix2 = scalar * self.matrix2
+                for k, row_2 in enumerate(
+                        self.new_matrix2):  # Placing the second random matrix created using the enumerate function into the second table
+                    for l, value in enumerate(row_2):
+                        newItem2 = QtWidgets.QTableWidgetItem(str(value))
+                        newItem2.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                        self.ui.Matrix_2.setItem(k, l, newItem2)
+
+        except ValueError:
+            self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+        except AttributeError:
+            self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def multiplication_matrix(self):
+        if self.ui.column_m1.text() != self.ui.row_m2.text():
+            self.msg = QMessageBox.critical(self, "Error", "Dimensions not same...")
+        else:
+            if self.ui.row_m1.text() == '' and self.ui.column_m1.text() == '' and self.ui.row_m2.text() == '' and self.ui.column_m2.text() == '':
+                self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+            else:
+                try:
+                    for i in range(len(self.matrix1)):
+                        for j in range(len(self.matrix1[0])):
+                            self.matrix1[i][j] = float(self.ui.Matrix_1.item(i, j).text())
+                    for i in range(len(self.matrix2)):
+                        for j in range(len(self.matrix2[0])):
+                            self.matrix2[i][j] = float(self.ui.Matrix_2.item(i, j).text())
+                    # Calling the matrix multiplication function I wrote and performing the operation
+                    self.result_matrix = matrix_mult.multiplication(self.matrix1, self.matrix2)
+                    self.ui.resultmatrix.setRowCount(
+                        len(self.result_matrix))  # setting the number of rows of the table where the result matrix will appear
+                    self.ui.resultmatrix.setColumnCount(len(self.result_matrix[
+                                                                0]))  # setting the number of columns of the table where the result matrix will appear
+
+                    for i in range(
+                            len(self.result_matrix[0])):  # change the column width value of the table for result matrix
+                        self.ui.resultmatrix.setColumnWidth(i, 500 / len(self.result_matrix[0]))
+                    for i in range(len(self.result_matrix)):
+                        # change the column width value of the table for result matrix
+                        self.ui.resultmatrix.setRowHeight(i, 300 / len(self.result_matrix))
+                    # Placing returned from multiplication function using the enumerate function into the result table
+                    for i, row in enumerate(self.result_matrix):
+                        for j, val in enumerate(row):
+                            newItem3 = QtWidgets.QTableWidgetItem(str(val))
+                            newItem3.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+                            self.ui.resultmatrix.setItem(i, j, newItem3)
+
+                except ValueError:
+                    self.msg = QMessageBox.critical(self, "Error", "Error.Only integer please...")
+                except AttributeError:
+                    self.msg = QMessageBox.critical(self, "Error", "Please fill in the required fields...")
+
+    def clear_matrix(self):
+        self.matrix1_current = 0
+        self.matrix2_current = 0
+        self.visible1_false_matrix()
+        self.visible2_false_matrix()
+        self.matrix1 = []
+        self.matrix2 = []
+        self.result_matrix = []
+
+        # Cleaning the table of matrices.
+        self.ui.Matrix_1.clear()
+        self.ui.Matrix_2.clear()
+        self.ui.resultmatrix.clear()
+        # Cleaning the column&row value of table of matrices.
+        self.ui.Matrix_1.setRowCount(0)
+        self.ui.Matrix_1.setColumnCount(0)
+        self.ui.Matrix_2.setRowCount(0)
+        self.ui.Matrix_2.setColumnCount(0)
+        self.ui.resultmatrix.setRowCount(0)
+        self.ui.resultmatrix.setColumnCount(0)
+        # Clear all row and columns.
+        self.ui.row_m1.clear()
+        self.ui.column_m1.clear()
+        self.ui.row_m2.clear()
+        self.ui.column_m2.clear()
 
     # SHOW ==> Randomize Selection Page
     def voice_random(self):
@@ -2020,12 +2665,10 @@ class MainWindow(QMainWindow):
         self.ui.set_default_values_random.setEnabled(False)
         self.clear_random()
 
-    # Function of array size value taken from dial to show next to line edit
     def value_len_random(self):
         self.length_random = self.ui.array_len_random.value()
         self.ui.display_arraylen_random.setText(str(self.length_random))
 
-    # Function to write number values to a bar chart.
     def autolabel_random(self, rects):
         for rect in self.rects:
             height = rect.get_height()
@@ -2036,7 +2679,6 @@ class MainWindow(QMainWindow):
                 self.ui.MplSort_random.canvas.axes.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
                                                         '%d' % int(height), ha='center', va='top')
 
-    # %% Creating a random array and display it on the screen
     def create_array_random(self):
         if self.ui.random_array_checkbox.isChecked():  # function written to create an array
             try:
@@ -2100,7 +2742,6 @@ class MainWindow(QMainWindow):
                 self.ui.disp_unsorted_array_random.clear()
                 self.unsorted_array_random = []
 
-    # %%Sorting a random array and display on the screen
     def sorting_array_random(self):
         if len(self.unsorted_array_random) != 0:
             temp_array1 = tuple(self.unsorted_array_random)
@@ -2118,7 +2759,6 @@ class MainWindow(QMainWindow):
         else:
             pass
 
-    # %%Finding the index of the searched number and display on the screen
     def find_number_random(self):
         try:
             if len(self.sorted_array_random) != 0:
@@ -2148,8 +2788,6 @@ class MainWindow(QMainWindow):
             self.ui.take_number_random.clear()
         except AttributeError:
             self.msg = QMessageBox.information(self, "Error", "Please create an array...")
-
-    # %%
 
     def partition_random_random(self, array, p, r):
         x = array[r]
@@ -2205,7 +2843,6 @@ class MainWindow(QMainWindow):
         else:
             return self.randomized_select_random(array, r + 1, q, i - k)
 
-    # %% Clear post-values with clear button
     def clear_random(self):
         self.lower_random = 0
         self.upper_random = 0
@@ -2243,6 +2880,14 @@ class MainWindow(QMainWindow):
     def log_out(self):
         self.close()
 
+    def support_logo(self):
+        recipient = 'murat_kilci@hotmail.com'
+        subject = 'mysubject'
+        body = 'This is a message'
+        webbrowser.open('mailto:?to=' + recipient + '&subject=' + subject + '&body=' + body, new=1)
+
+    def info_logo(self):
+        self.inffButton.show()
 
 
 # %% Initialization

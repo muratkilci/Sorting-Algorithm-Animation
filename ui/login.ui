@@ -188,7 +188,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="userName"/>
+        <widget class="QLineEdit" name="userName">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255)</string>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer_3">
@@ -243,7 +247,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="password"/>
+        <widget class="QLineEdit" name="password">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255)</string>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer_4">
